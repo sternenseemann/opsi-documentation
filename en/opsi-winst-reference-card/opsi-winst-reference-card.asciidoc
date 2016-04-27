@@ -32,7 +32,7 @@ include::../common/opsi_terms.asciidoc[]
 
 
 [[opsi-winst-rc]]
-= opsi-winst / opsi-script reference card (4.11.5)
+= opsi-winst / opsi-script reference card (4.11.6)
 
 // Include common opsi copyright
 include::../common/opsi_manual_copyright.asciidoc[]
@@ -347,6 +347,8 @@ set $result$ = FreeLicense("", "office2007")
 
 `scriptWasExecutedBefore` : boolean - is true if saved and running productversion-packageversion are identical //since 4.11.2.1
 
+
+
 [[opsi-winst-rc-other]]
 ===== Other
 
@@ -423,6 +425,8 @@ set $list1$ = splitString ("\\server\share\dir","\")
 `composeString (`<string list>, <Link>`)` [W/L]
 
 `takeString (`<index>, <list>`)` [W/L]
+
+`setStringInListAtIndex(`<newstring>,<list>,<indexstr>`) : list` //since 4.11.6  [W/L]
 
 `takeFirstStringContaining(`<list>,<search string>`)` [W/L]
 
@@ -595,6 +599,56 @@ endif
 `CompareDotSeparatedNumbers(`<str1>,<relation str>,<str2>`)`  //since 4.11.5.2: [W/L]
 
 `CompareDotSeparatedStrings(`<str1>,<relation str>,<str2>`)`  //since 4.11.5.2: [W/L]
+
+
+
+[[opsi-winst-rc-json]]
+===== json Related functions [W/L]
+
+`jsonIsValid(`<jsonstr>`) : boolean`  //since 4.11.6: [W/L]
+
+`jsonIsArray(`<jsonstr>`) : boolean`  //since 4.11.6: [W/L]
+
+`jsonIsObject(`<jsonstr>`) : boolean`  //since 4.11.6: [W/L]
+
+`jsonAsObjectHasKey(`<jsonstr>,<keystr>`) : boolean`  //since 4.11.6: [W/L]
+
+`jsonAsArrayCountElements(`<jsonstr>`) : intstr`  //since 4.11.6: [W/L]
+
+`jsonAsObjectCountElements(`<jsonstr>`) : intstr`  //since 4.11.6: [W/L]
+
+`jsonAsArrayGetElementByIndex(`<jsonstr>, <indexstr>`) : jsonstring`  //since 4.11.6: [W/L]
+
+`jsonAsObjectGetValueByKey(`<jsonstr>, <keystr>`) : valuestring`  //since 4.11.6: [W/L]
+
+`jsonAsObjectSetValueByKey(`<jsonstr>, <keystr>,<valuestring>`) : jsonstring`  //since 4.11.6: [W/L]
+
+`jsonAsObjectSetStringtypeValueByKey(`<jsonstr>, <keystr>,<valuestring>`) : jsonstring`  //since 4.11.6: [W/L]
+
+`jsonAsArrayPutObjectByIndex(`<jsonstr>, <indexstr>, <objectstr>`) : jsonstring`  //since 4.11.6: [W/L]
+
+`jsonAsArrayToStringList(`<jsonstr>`) : stringlist`  //since 4.11.6: [W/L]
+
+`jsonAsObjectGetKeyList(`<jsonstr>`) : stringlist`  //since 4.11.6: [W/L]
+
+`jsonStringListToJsonArray(`<strlist>`) : jsonstr`  //since 4.11.6: [W/L]
+
+see also: <<opsi-winst-rc-OpsiServiceCall>>
+
+[[opsi-winst-rc-json]]
+===== Process and Script Related functions [W/L]
+
+`Killtask` <process name> [W/L]
+
+`ChangeDirectory` <directory>   //since 4.11.2.6 [W/L]
+
+`GetProcessList :list`  //since 4.11.1.2; gives list of exename;pid;dom/user [W/L]
+
+see also: <<opsi-winst-rc-execwith>>
+
+see also: <<opsi-winst-rc-dosbatch>>
+
+see also: <<opsi-winst-rc-winbatch>>
 
 [[opsi-winst-rc-func-misc]]
 ==== Misc functions
