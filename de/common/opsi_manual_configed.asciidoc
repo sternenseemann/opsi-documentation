@@ -1147,8 +1147,8 @@ Die Einstellungen lassen sich unter dem Menüpunkt  "Verbindungsdaten" ändern. 
 welche der Menüpunkte sichtbar sind bzw. genutzt werden können.  
 Bei aktivierter Userroles-Funktionalität (vgl. <<opsi-manual-configed-hostproperties-userroles>>)
 werden die Konfigurationen userspezifisch verwendet. Für einen neu angelegten User werden dabei 
-als Default-Werte zunächst die Werte von der allgemeinen User-Ebene gesetzt.
-
+als Default-Werte zunächst die Werte von der allgemeinen User-Ebene gesetzt. +
+Außerdem dürfen nur jene Benutzer überhaupt Befehle auf gewissen Servern ausführen oder die Konsole verwenden, die sich mittels SSH auf diesem Server verbinden dürfen oder, die den entsprechenden Server im Userrole-Config "user.{}.privilege.host.depotaccess.depots" freigegeben haben. Falls Userroles nicht freigeschaltet ist, darf man sich configed-seitig an alle für opsi bekannten Servern verbinden. +
 Folgende Configs existieren:
 
 * user.{}.ssh.serverconfiguration.active: +
@@ -1165,6 +1165,8 @@ Schaltet die SSH-Shell frei. (Default: true)
 
 * user.{}.ssh.commands.active: +
 Schaltet alle SSH-Menüeinträge frei, die hinterlegte Befehle darstellen. (Default: true)
+
+Neben den Configs für diverse Menüaktivierungen wurde ein weiterer eingeführt : "configed.workbench.default". Dieser ist standardmäßig auf "/home/opsiproducts/" gesetzt. Wird ein anderes Produkt-Bau-Verzeichnis verwendet, kann es an dieser Stelle hinterlegt werden. Es wird lediglich zur schnelleren Navigation z.B. bei der opsi-makeproductfile Oberfläche verwendet.
 
 [[opsi-manual-configed-serveractions-terminal]]
 ==== SSH-Terminal

@@ -1053,6 +1053,7 @@ The settings can be changed or adjust under the menu entry "Connection Informati
 
 The visibility of menu items in the server console menu is controlled by a series of server host parameters in the user section. If the user roles feature is used 
 (cf. <<opsi-manual-configed-hostproperties-userroles>>) the configs are specifically set for each user (the default values for a newly created user entry are taken from the top user level).
+The allowed server are (without userroles feature:) all known server for opsi -- otherwise all allowed depots should be define in the config "user.{}.privilege.host.depotaccess.depots" are allowed.
 
 In order to be able to use different functions, the appropriate server settings must be activated. +
 
@@ -1070,6 +1071,9 @@ Allows the usage of the ssh shell. (Default: true)
 
 * user.{}.ssh.commands.active: +
 Allows to execute all menu items displaying stored commands. (Default: true)
+
+To define the product build directory (default: "/home/opsiproducts/"), which is needed e.g. in the opsi-makeproductfile gui, a new config was created "configed.workbench.default". 
+
 
 [[opsi-manual-configed-serveractions-terminal]]
 ==== SSH-Terminal
