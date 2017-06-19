@@ -985,26 +985,31 @@ die zugehörigen Client-Einträge.
 - Umgekehrt muss, um einen Client-Eintrag zu erhalten, zuerst ein Server-Konfigurationsobjekt angelegt werden.
 
 - Es kann sowohl bei Abweichung des Client-Wertes vom Server-Default als auch, wenn die beiden derzeit identisch sind, einen 
-Eintrag des Clienst in der Datenbank geben. Wenn es diesen Werte-Eintrag gibt, bleibt er auch erhalten, wenn sich der
+eigenen Eintrag des Clients in der Datenbank geben. Sofern es diesen eigenen Eintrag gibt, bleibt er auch erhalten, wenn sich der
 Server-Default ändert.
 
-- Daher gibt es für den Client-Properties via Kontextmenü die beiden Optionen "Spezifischen Client-Wert entfernen" 
+- Zum Umgang mit diesem Thema gibt es daher ab configed Version 4.0.7.6.5 für die Client-Properties ein Kontextmenü mit den beiden Optionen "Spezifischen Client-Wert entfernen" 
 (d.h., der Clientwert ist immer der gerade aktuelle Default-Werte des Servers) und  "Setze den jetzigen Default-Wert
-als (dauerhafen) Wert für den Client.
+als (dauerhaften) Wert für den Client.
 
 - Wenn ein spezifischer Client-Wert sich vom Server-Default unterscheidet, so ist dieser fett dargestellt. 
 
-- Es kann Konfigurationsobjekte geben, für die Client-Werte erzeugt und bearbeitet
-werden können, die jedoch keine Bedeutung haben. Diese Properties sind allerdings in der Regel ausgeblendet und treten daher 
-nicht in Erscheinung
+- Es kann Konfigurationsobjekte geben, für die theoretisch Client-Werte erzeugt und bearbeitet
+werden können, die jedoch keinerlei Bedeutung haben, weil eigentlich nur serverbezogene Informationen gespeichert werden. 
+Diese Properties sind in den aktuellen configed-Versionen in der Regel ausgeblendet.
 
 Zur besseren Übersicht werden ab Version 4.0.3 die Host-Parameter gegliedert nach Funktionsgruppen aufgeführt.
-Die Gruppen sind auf der linken Seite in einer baumartigen Struktur dargestellt. Jeweils die zugehörigen
-Parameter und ihre Werte werden, wenn die Gruppe links aktiviert ist, auf der rechten Seite präsentiert.
+Die Gruppen sind auf der linken Seite in einer baumartigen Struktur aufgeführt. Jeweils die zugehörigen
+Parameter und ihre Werte werden, wenn die Gruppe aktiviert ist, auf der rechten Seite dargestellt.
 
 
-.'{opsi-configed}': Tab Hostparameter (Server- und Client-Konfiguration)
-image::opsi-configed-hostparameters.png["{opsi-configed}: Tab Hostparameter (Server- und Client-Konfiguration)", width=400]
+.'{opsi-configed}': Tab Hostparameter (als Serverkonfiguration)
+image::opsi-configed-hostparameters.png["{opsi-configed}: Tab Hostparameter (als Serverkonfiguration)", width=400]
+
+
+.'{opsi-configed}': Tab Hostparameter (Bearbeitung eines Clienteintrags)
+image::opsi-configed_hostparameter_setting1.png["{opsi-configed}: Tab Hostparameter (Bearbeitung eines Clienteintrags)", width=400]
+
 
 
 [[opsi-manual-configed-hostproperties-userroles]]
