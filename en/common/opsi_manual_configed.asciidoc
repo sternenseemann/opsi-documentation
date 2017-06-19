@@ -64,25 +64,32 @@ The help option `java -jar configed.jar --help` shows the available command line
 [source, prompt]
 ----
 java -jar configed.jar --help
+configed [OPTIONS] 
+   where an OPTION may be 
 
-configed [OPTIONS]
+     -l, --locale  LOC    Set locale LOC (format: <language>_<country>)
+     -h, --host  HOST    Configuration server HOST to connect to
+     -u, --user  USER    User for authentication
+     -p, --password  PWD    Password for authentication
+     -d, --logdirectory DIR    Directory for the log files
+     -c, --client CLIENT    Start with selected client CLIENT
+     -g, --group GROUP    Start with activated group GROUP
+     -t, --tab    INDEX Start with tab number INDEX, index counting starts with 0, works only if a CLIENT is preselected
+    -r REFRESHMINUTES --refreshminuites REFRESHMINUTES    Refresh data every REFRESHMINUTES  (where this feature is implemented, 0 = never)
+     -qs, --querysavedsearch [SAVEDSEARCH_NAME]    On command line: tell saved host searches list resp. the search result for [SAVEDSEARCH_NAME])
+         --ssh-key SSHKEY    full path with filename from sshkey used for authentication on ssh server
+         --ssh-passphrase PASSPHRASE    passphrase for given sshkey used for authentication on ssh server
+         --collect_queries_until_no N    Collect the first N queries; N = -1 (default, no collect) N = infinite 
+         --help    Give this help
+         --gzip  [y/n]    Activate gzip transmission of data from opsi server yes/no (default yes)
+         --version    Tell configed version
+         --loglevel L    Set logging level to L
+         --halt    Use  first occurring debug halt point that may be in the code
+         --sqlgetrows    Force use sql statements by getRawData
+         --nosqlrawdata    Avoid getRawData
+         --localizationfile   Use the following file as localization file, the file name format has to be like configed_LOCALENAME.properties
+	 --localizationstrings  Show internal labels together with the strings of selected localization
 
-Options:
-     -l, --locale  LOC  Set locale LOC (format: <language>_<country>)
-     -h, --host  HOST    Configuration server to connect to
-     -u, --user  USER   Username for authentication
-     -p, --password  PWD Password for authentication
-     -d, --logdirectory DIR Directory for the log files
-     -c, --client CLIENT Start with selected client CLIENT
-     -g, --group GROUP Start with activated group GROUP
-     -t, --tab X Start with selected tab X
-     -qs, --querysavedsearch SAVEDSEARCH_NAME Give names of clients on commandline which are produced by this search
-      -r, --refreshminutes MIN   Refresh client connect data every MIN (0 = never)
-         --help    Show this text
-         --gzip  [/y/n] Activate gzip transmission of data from opsi server (default yes)
-         --sqlgetrows  Get data by method getRawData where implemented
-         --version  Tell configed version
-         --loglevel L	Set logging level to L
 
 logging directory not yet set
 regularly exiting app with code 0
@@ -377,7 +384,8 @@ In the client selection dialog (as called via menu 'Selection / Define search') 
 image::configed_clientselection.png["{opsi-configed}: Define Client Search Window", width="73mm"]
 
 E.g., it is possible to search for opsi installed products as well as software found by the opsi software audit. You may as well search for
-PCs satisfying certain hardware conditions. Criteria may be combined by logical 'and' or 'or' operations and may be negated.
+PCs satisfying certain hardware conditions. Criteria may be combined by logical 'AND' or 'OR' operations and may be negated by 
+a 'NOT' (which is produced by a click on the Not-Field before the  property field).
 Search strings can be given as fixed strings combined with asterisks '*' as wildcard symbols.
 
 Search definitions can be saved and then again used via the menu item 'Selection/Use saved search definition'.

@@ -79,7 +79,9 @@ configed [OPTIONS]
          --halt    Use  first occurring debug halt point that may be in the code
          --sqlgetrows    Force use sql statements by getRawData
          --nosqlrawdata    Avoid getRawData
-         --sqldirect-cleanup-auditsoftware    Use direct sql access if possible in PersistenceController 
+         --localizationfile   Use the following file as localization file, the file name format has to be like configed_LOCALENAME.properties
+	 --localizationstrings  Show internal labels together with the strings of selected localization
+
 
 logging directory not yet set
 regularly exiting app with code 0
@@ -368,9 +370,9 @@ image::configed_clientselection.png["{opsi-configed}: Auswahldialog", width="73m
 
 Neben allgemeinen Eigenschaften der Clients (Rubrik 'Wähle nach Host Eigenschaften') können als Suchkriterium auch (sowohl auf dem PC gefundene als auch mit Opsi installierte) Software sowie Hardware-Komponenten verwendet werden.
 Bei Texteingaben kann '*' als Wildcard benutzt werden.
-Die einzelnen Kriterien können dabei mit logischem "and"(und) bzw. "or"(oder) verknüpft werden, als auch negiert werden durch ein vorangestelltes "not"(nicht).
+Die einzelnen Kriterien können dabei mit logischem 'AND' (UND)  bzw. 'OR' (ODER) verknüpft werden wie auch negiert werden durch ein vorangestelltes 'NOT' (NICHT) (erzeugt durch Anklicken des Not-Feldes vor dem Eigenschaftsnamen)
 
-Die Auswahlliste betitelt 'Kriterium hinzufügen'  stellt weitere Kriterien zur Definition einer Anfrage bereit.
+Die Auswahlliste, betitelt 'Kriterium hinzufügen',  stellt weitere Kriterien zur Definition einer Anfrage bereit.
 Mit dem Papierkorb-Icon am rechten Rand wird ein Suchkriterium entfernt.
 Den initialen Zustand der Suchmaske stellt ein Klick auf den Button 'Neue Anfrage' wieder her.
 
