@@ -982,17 +982,21 @@ Das Verhältnis von Server- und Client-Hosteinträgen ist verwickelt:
 - Wenn ein Server-Eintrag (das config-Objekt) gelöscht wird, verschwinden auch
 die zugehörigen Client-Einträge.
 
-- Wenn ein Client-Eintrag im '{opsi-configed}'  neu angelegt wird, wird automatisch ein
-passendes Server-Konfigurationsobjekt erzeugt.
+- Umgekehrt muss, um einen Client-Eintrag zu erhalten, zuerst ein Server-Konfigurationsobjekt angelegt werden.
 
-- Wenn ein Client-Eintrag im '{opsi-configed}' gelöscht wird, wird nur ein eventuell vorhandener spezifischer Wert
-gelöscht und wieder der Server-Default verwendet.
+- Es kann sowohl bei Abweichung des Client-Wertes vom Server-Default als auch, wenn die beiden derzeit identisch sind, einen 
+Eintrag des Clienst in der Datenbank geben. Wenn es diesen Werte-Eintrag gibt, bleibt er auch erhalten, wenn sich der
+Server-Default ändert.
 
-- Wenn ein spezifischer Client-Wert sich vom Server-Default unterscheidet, so ist dieser fett dargestellt.
+- Daher gibt es für den Client-Properties via Kontextmenü die beiden Optionen "Spezifischen Client-Wert entfernen" 
+(d.h., der Clientwert ist immer der gerade aktuelle Default-Werte des Servers) und  "Setze den jetzigen Default-Wert
+als (dauerhafen) Wert für den Client.
 
-- Für bestimmte Konfigurationsobjekte können zwar Client-Werte erzeugt und bearbeitet
-werden, sie haben jedoch keine Bedeutung, weil die zugehörige Funktion serverspezifisch definiert ist (z.B. die Einträge
-für den '{opsi-configed}', die zur Rubrik `configed.` gehören).
+- Wenn ein spezifischer Client-Wert sich vom Server-Default unterscheidet, so ist dieser fett dargestellt. 
+
+- Es kann Konfigurationsobjekte geben, für die Client-Werte erzeugt und bearbeitet
+werden können, die jedoch keine Bedeutung haben. Diese Properties sind allerdings in der Regel ausgeblendet und treten daher 
+nicht in Erscheinung
 
 Zur besseren Übersicht werden ab Version 4.0.3 die Host-Parameter gegliedert nach Funktionsgruppen aufgeführt.
 Die Gruppen sind auf der linken Seite in einer baumartigen Struktur dargestellt. Jeweils die zugehörigen
