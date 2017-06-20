@@ -877,9 +877,7 @@ The original package default values of the products will be set for the selected
 
 
 [[opsi-manual-configed-hostproperties]]
-=== Host parameters at client and server configuration
-
-
+=== Host parameters in client and server configuration
 
 There are many configuration options for the opsi server and the opsi clients
 that may be set or changed via the tab 'Host parameters'. Server defaults are
@@ -889,43 +887,58 @@ in the mode 'client configuration' plus manual selection of the 'Host parameters
 
 On principle, these configuration entries ('config objects' of the '{opsi-server}')
 are conceived as lists of values. Therefore they are
-edited via the list editor tool (cf.
+edited via the list editor component (cf.
 <<opsi-manual-configed-property-editing>>).
 
-Depending on the specific definition of a configuration object
+Depending on the specific type of a configuration object, 
 
-- the values of a list can be of type text (`Unicode`) or of type `Boolean` (i.e. `true`/`false`);
+- the elements of the list can be of type text (`Unicode`) or of type `Boolean` (i.e. `true`/`false`);
 
-- the list may have only one element or may be a true list with several members;
+- the set of all values from which elements can be selected may be fixed or extensible.
 
-- the set of values from which list elements are selected may be fixed or extensible.
+- the object has a defaultValues-entry, which comprises in the singleValue case exactly one 
+list element, in the multiValue case some partial list selected from the list of all possible values.
 
-New configuration entries of types unicode (extendible) and boolean (fixed) may be created
-via the context menu. It offers also the option to remove existing entries.
+New configuration objects can be created via the context menu of the server host parameters. 
+At this place it is also possible to remove existing entries.
 
-The relationship of server and client entries is complicated.
+The relationship of server and client entries is a little bit complicated.
 
-- Server entries hold the defaults for client entries.
+- Server entries hold the defaults for client entries (this is the defaultValues entry in the server configuration object)
 
-- When a server entry (a config object) is deleted the depending client entries (config states) are deleted as well.
+- Consequentliy, if a client entry is needed a server configuration object must be created beforehand.
 
-- Creation of a client entry via '{opsi-configed}' entails the automatic creation of an adequate server default.
+- And, when a server entry (a config object) is deleted,
+the depending client entries (called config states) are (automatically) deleted as well.
 
-- Deletion of a client entry via '{opsi-configed}' removes only the client specific value (if existing) but
-leaves the server default (which will be valid for the client).
+- If the client related value is shown as identical with its (server based) default value this may be be 
+because there does not exist a client specific data base entry or because the client value is identical 
+with the server default value. In the first case the client value changes when the server default value 
+gets new contents, in the second case the client remains unchanged. 
 
-- If a specific client value exists and is not identical with the server default value it is printed in a bold font.
+- In order to work comfortable with this situation since opsi-configed version 4.0.7.6.5 the context menus
+of the client host properties offer the options (1) to remove the specific client values, so that from now on
+only the current server values are decisive, (2) to fix the  specific client values to the current server values. 
+  
+- if the currently presented client value iis not identical with the server default value it is given in a bold font.
 
-- There are configurations objects for which client values may be created and edited but only the server
-objects are used (e.g. the entries for the '{opsi-configed}' in the category 'configed.').
+- There are configurations objects for which client values can  be created and edited but in fact only the server
+objects are used. In most cases, the current configed does not show them any more in the client parameters view.
 
-Starting with {opsi-configed} version 4.0.3, the configurations objects are categorized in some (predefined)
+To get more structure the configurations objects are categorized in some (predefined)
 groups. The groups are listed in a tree-like manner on the left part of the panel. The entry name/value pairs
 belonging to the selected group are shown in the right part of the panel. Wheel mouse scrolling is enabled
 as well on the left as on the right side.
 
-.'{opsi-configed}': Tab Host parameters (Server- and Client configuration)
+.'{opsi-configed}': Tab Host parameters (as server configuration)
 image::opsi-configed-hostparameters-EN.png["{opsi-configed}: Tab Host parameters (Server- and Client configuration)", width=400]
+
+.'{opsi-configed}': Tab Host parameters (context menü of a client entry)
+image::opsi-configed-hostparameter_setting.png["{opsi-configed}:  Tab Host parameters (context menü of a client entry)", width=250]
+
+
+
+
 
 [[opsi-manual-configed-hostproperties-userroles]]
 ==== Management of user rights and roles

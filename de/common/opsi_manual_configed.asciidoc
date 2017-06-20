@@ -954,7 +954,7 @@ Die Original-Paket-Werte des Produkts werden für das/die ausgewählte/n Depot/s
 [[opsi-manual-configed-hostproperties]]
 === Host-Parameter in der Client- und der Serverkonfiguration
 
-Einige Konfigurationsdaten können Sie über den Tab 'Host-Parameter' setzen
+Eine ganze Reihe von Konfigurationsvorgaben können Sie über den Tab 'Host-Parameter' setzen
 und zwar als Server-Defaults im Modus Serverkonfiguration
 (vgl. <<opsi-manual-configed-mode-selection>>)
 und clientspezifisch in der Clientkonfiguration.
@@ -964,51 +964,52 @@ Wertelisten.
 Als Werkzeug zur Bearbeitung der Werte dient daher der Listeneditor
 (vgl. <<opsi-manual-configed-property-editing>> )
 
-Je nach Definition des jeweiligen Konfigurationsobjekts können die Werte der Liste
+Je nach Type des jeweiligen Konfigurationsobjekts 
 
-- Unicode-Textwerte oder boolesche Werte (`true`/`false`) sein,
+- können die Elemente der Liste entweder Unicode-Textwerte oder boolesche Werte (`true`/`false`) sein;
 
-- die Liste kann ein- oder mehrelementig sein
+- kann die Gesamtheit der zulässigen Listenelemente fest oder erweiterbar sein;
 
-- und die Auswahl für die Listenelemente kann fest oder erweiterbar sein.
+- umfasst der DefaultValues-Eintrag des Objekts  im singleValue-Fall genau ein Listenelement, 
+bei multiValue-Objekten eine beliebige Auswahl aus den zulässigen Listenelementen.
 
-Neue Konfigurationseinträge der Typen Unicode-Liste (erweiterbar) sowie boolesche Liste (fix)
-können über das Kontextmenü erstellt werden. Ebenso können bestehende Einträge gelöscht werden.
+Neue Konfigurationseinträge können über das Kontextmenü auf der Server-Hostparameter-Seite erstellt werden. 
+Ebenso können dort bestehende Objete gelöscht werden.
 
 Das Verhältnis von Server- und Client-Hosteinträgen ist verwickelt:
 
 - Server-Einträge liefern die Default-Werte für die Client-Einträge.
 
-- Wenn ein Server-Eintrag (das config-Objekt) gelöscht wird, verschwinden auch
-die zugehörigen Client-Einträge.
+- Konsequenterweise muss, um einen Client-Eintrag zu erhalten, zuerst ein Server-Konfigurationsobjekt angelegt werden.
 
-- Umgekehrt muss, um einen Client-Eintrag zu erhalten, zuerst ein Server-Konfigurationsobjekt angelegt werden.
+- Und, wenn ein Server-Eintrag (das Config-Objekt) gelöscht wird, verschwinden auch 
+die zugehörigen Client-Einträge (die auf ConfigState-Objekten beruhen).
 
 - Es kann sowohl bei Abweichung des Client-Wertes vom Server-Default als auch, wenn die beiden derzeit identisch sind, einen 
 eigenen Eintrag des Clients in der Datenbank geben. Sofern es diesen eigenen Eintrag gibt, bleibt er auch erhalten, wenn sich der
 Server-Default ändert.
 
-- Zum Umgang mit diesem Thema gibt es daher ab configed Version 4.0.7.6.5 für die Client-Properties ein Kontextmenü mit den beiden Optionen "Spezifischen Client-Wert entfernen" 
-(d.h., der Clientwert ist immer der gerade aktuelle Default-Werte des Servers) und  "Setze den jetzigen Default-Wert
-als (dauerhaften) Wert für den Client.
+- Zum Umgang mit diesem Thema gibt es daher ab configed Version 4.0.7.6.5 für die Client-Properties ein Kontextmenü 
+mit den beiden Optionen "Spezifischen Client-Wert entfernen" (d.h., der Clientwert ist immer der gerade aktuelle Default-Werte des Servers) 
+und  "Setze den jetzigen Default-Wert als (dauerhaften) Wert für den Client.
 
-- Wenn ein spezifischer Client-Wert sich vom Server-Default unterscheidet, so ist dieser fett dargestellt. 
+- Wenn der Client-Wert sich vom aktuellen Server-Default unterscheidet, so ist dieser fett dargestellt.  
 
 - Es kann Konfigurationsobjekte geben, für die theoretisch Client-Werte erzeugt und bearbeitet
 werden können, die jedoch keinerlei Bedeutung haben, weil eigentlich nur serverbezogene Informationen gespeichert werden. 
 Diese Properties sind in den aktuellen configed-Versionen in der Regel ausgeblendet.
 
-Zur besseren Übersicht werden ab Version 4.0.3 die Host-Parameter gegliedert nach Funktionsgruppen aufgeführt.
-Die Gruppen sind auf der linken Seite in einer baumartigen Struktur aufgeführt. Jeweils die zugehörigen
-Parameter und ihre Werte werden, wenn die Gruppe aktiviert ist, auf der rechten Seite dargestellt.
+Zur besseren Übersicht sind die Host-Parameter gegliedert nach Funktionsgruppen aufgeführt.
+Die Gruppen werden auf der linken Seite in einer baumartigen Struktur aufgeführt. Jeweils die zugehörigen
+Parameter und ihre Werte erscheinen auf der rechten Seite.
 
 
 .'{opsi-configed}': Tab Hostparameter (als Serverkonfiguration)
 image::opsi-configed-hostparameters.png["{opsi-configed}: Tab Hostparameter (als Serverkonfiguration)", width=400]
 
 
-.'{opsi-configed}': Tab Hostparameter (Bearbeitung eines Clienteintrags)
-image::opsi-configed_hostparameter_setting1.png["{opsi-configed}: Tab Hostparameter (Bearbeitung eines Clienteintrags)", width=400]
+.'{opsi-configed}': Tab Hostparameter (Kontextmenü eines Clienteintrags)
+image::opsi-configed-hostparameter_setting.png["{opsi-configed}: Tab Hostparameter (Kontextmenü eines Clienteintrags)", width=250]
 
 
 
