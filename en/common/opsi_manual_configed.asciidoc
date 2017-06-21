@@ -189,7 +189,7 @@ image::opsi-configed-mode-depotselection.png["{opsi-configed}: depot selection",
 
 
 [[opsi-manual-configed-client-selection]]
-=== Single client selection and group configuration
+=== Cient selection
 
 After a successful login, the main window pops up and shows the tab 'Client selection'.
 This tab shows a list of known clients from the selected '{opsi-depot}' resp. the clients
@@ -475,6 +475,49 @@ Using the menu 'OpsiClient' or the context menu in the 'Clients' tab you may cho
 .'{opsi-configed}': : context menu 'Clients' Tab
 image::opsi-configed-client-contextmenu.png["{opsi-configed}: : context menu 'Clients' Tab", width="51mm"]
 
+
+
+[[opsi-manual-configed-module-uefi-wan-installbyShutdown]]
+==== Install By Shutdown, Uefi Boot and WAN Configuration
+
+Several client standard configurations can be applied directly in the client information panel which is located on the right side 
+of the clients page. Please observe that UEFI support and WAN configuration both are currently based on non free extension modules.
+If these modules are not active the corresponding buttons are disabled.
+
+
+* Install By Shutdown: +
+In <<opsi-on-shutdown>> , the method do switch to Install by Shutdown installation is described en detail. You can automatically 
+trigger this configuration by pushing the On-Button for InstallByShutdown. Observe that this requires a opsi-client-agent reinstall or reconfigure. 
+Alas, the state of the configuration can currently only be seen in the product property `on_shutdown_install`of the opsi-client-agent product. 
+
+* Uefi Boot: +
+The state of checkbox Uefi Boot indicates, if a client is configured for UEFI boot. It is activated the value of the client host parameter  
+"clientconfig.dhcpd.filename" is changed to "linux/pxelinux.cfg/elilo.efi" geändert. (For more infos cf <<opsi-manual-uefi>>)
+
+* WAN-Konfiguration: + 
+Der opsi-configed prüft, ob die Standard-WAN-Konfiguration für den Client vorliegt oder nicht. Entsprechend ist der Haken für WAN-Konfiguration gesetzt oder nicht.
+Und wenn man den Haken manuell setzt,  wird die Standard-Konfiguration eingerichtet. 
+
+Diese Konfiguration ist seit Version 4.0.7.6.5 nicht mehr hart kodiert , 
+sondern wird aus den Server-Hostparametern configed.meta_config.wan_mode_off* ausgelesen bzw. als deren Verneinung interpretiert. 
+Wenn man die automatisch eingerichteten Meta_Config.wan_mode*-Parameter beibehalten hat, 
+kommt die in <<opsi-manual-wansupport-recommended-config>> beschriebene,
+von der uib GmbH empfohlene Standard-WAN-Konfiguration zum Zuge. 
+ 
+
+TIP: Ob der Client als WAN-Client konfiguriert ist oder einen UEFI-Boot macht, kann in der Client-Tabelle auch in passenden Spalten dargestellt werden. 
+Für die laufende Session werden sie  im Menüpunkt 'OpsiClient' oder im Kontextmenü aktiviert, dauerhaft über den Eintrag configed.host_displayfields 
+bei den Server-Hostparametern. Dann ist direkt in der Übersicht erkennbar, 
+für welche Clients die Eigenschaft gesetzt ist, und es kann auch danach gesucht und sortiert werden.
+
+
+
+.'{opsi-configed}': Erweiterte Spaltensicht für opsi-Clients
+image::opsi-configed-clientinfos.png["{opsi-configed}: Erweiterte Spaltensicht für opsi-Clients", width="150mm"]
+ 
+
+
+
 [[opsi-manual-configed-client-editing-wakeonlan]]
 ==== WakeOnLan ('Wake selected clients')
 Choosing this menu entry, you will send the selected clients a WakeOnLan signal.
@@ -533,7 +576,7 @@ The selected clients get the signal to communicte their session information. The
 
 
 [[opsi-manual-configed-host-actions-delete-package-caches]]
-=== For WAN-Clients: Delete package cache
+==== For WAN-Clients: Delete package cache
 
 On WAN clients there are occasional problems with the package cache synchronization. This function resets the cache.
 

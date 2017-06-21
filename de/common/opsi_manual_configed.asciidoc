@@ -185,7 +185,7 @@ für das neue Depot eine andere Gruppe bzw. die ganze CLIENT-LISTE aktiviert wer
 image::opsi-configed-depotserver-auswahl.png["{opsi-configed}: Depotauswahl", width="250"]
 
 [[opsi-manual-configed-client-selection]]
-=== Clientauswahl und Gruppenbildung
+=== Clientauswahl
 
 Nach erfolgreichem Login zeigt sich das Hauptfenster mit dem aktiviertem Karteireiter 'Clients' zur Auswahl von Clients.
 Das Hauptfenster zeigt die Liste der Clients, wie sie durch die Depotwahl gegeben bzw. im 'Treeview' - s. <<opsi-manual-configed-treeview>> - bestimmt ist.
@@ -488,13 +488,14 @@ image::opsi-configed-client-contextmenu.png["{opsi-configed}: Kontextmenü der C
 [[opsi-manual-configed-module-uefi-wan-installbyShutdown]]
 ==== Install By Shutdown, Uefi-Boot und WAN-Konfiguration
 
-Seit der Version 4.0.5.8.1 gibt es die Möchlichkeit verschiedene standard Konfigurationen für einen Client direkt in der
-Client-Information zu setzten, die sich rechts von der Client-Liste befinden.
+Einige Standard Konfigurationen für einen Client können direkt in der Client-Information gesetzt werden, 
+die sich rechts von der Client-Liste befindet. Zu beachten ist, dass es sich bei der UEFI-Boot-Unterstützung und bei der WAN-Konfiguration 
+um derzeit kostenpflichtige Erweiterungsmodule handelt. Wenn die Module nicht aktiv sind,  werden die Buttons ausgegraut.
 
 
 * Install By Shutdown: +
-Der herkömmliche Weg Installationen beim Herunterfahren durchzuführen, befindet sich im <<opsi-on-shutdown>>.
-Dies wird nun vereinfacht durch die Buttons "An" und "Aus", welche beim Betätigen, den opsi-client-agent mit dem entsprechenden
+Der herkömmliche Weg, Installationen  beim Herunterfahren des Rechners zu konfigurieren, ist in  <<opsi-on-shutdown>> beschrieben.
+Dies wird vereinfacht durch die Buttons "An" und "Aus", welche beim Betätigen, den opsi-client-agent mit dem entsprechenden
 Wert für das Product-Property "on_shutdown_install" auf setup setzten. Bislang ist es nicht möglich den Status anzeigen zu lassen, ob
 ein Client beim Hoch- oder Herunterfahren die Pakete installiert.
 
@@ -502,11 +503,27 @@ ein Client beim Hoch- oder Herunterfahren die Pakete installiert.
 Die Checkbox Uefi-Boot zeigt an, ob ein Client für den Uefi-Boot konfiguriert ist. Beim Aktivieren wird der Config
 "clientconfig.dhcpd.filename" zu "linux/pxelinux.cfg/elilo.efi" geändert. (Weiteres im <<opsi-manual-uefi>>)
 
-* WAN-Konfiguration: +
-Bei dieser Konfiguration handelt es sich um die in <<opsi-manual-wansupport-recommended-config>> beschriebenen,
-von uib GmbH empfohlenen standard WAN-Konfiguration. Die darin befindlichen Schritte werden beim akt- bzw. deaktieren
-entsprechend durchgeführt und beim Auswählen eines Clients ausgelesen. Eine eigene Konfiguration für diese Zustände ist nicht
-implementiert.
+* WAN-Konfiguration: + 
+Der opsi-configed prüft, ob die Standard-WAN-Konfiguration für den Client vorliegt oder nicht. Entsprechend ist der Haken für WAN-Konfiguration gesetzt oder nicht.
+Und wenn man den Haken manuell setzt,  wird die Standard-Konfiguration eingerichtet. 
+
+Diese Konfiguration ist seit Version 4.0.7.6.5 nicht mehr hart kodiert , 
+sondern wird aus den Server-Hostparametern configed.meta_config.wan_mode_off* ausgelesen bzw. als deren Verneinung interpretiert. 
+Wenn man die automatisch eingerichteten Meta_Config.wan_mode*-Parameter beibehalten hat, 
+kommt die in <<opsi-manual-wansupport-recommended-config>> beschriebene,
+von der uib GmbH empfohlene Standard-WAN-Konfiguration zum Zuge. 
+ 
+
+TIP: Ob der Client als WAN-Client konfiguriert ist oder einen UEFI-Boot macht, kann in der Client-Tabelle auch in passenden Spalten dargestellt werden. 
+Für die laufende Session werden sie  im Menüpunkt 'OpsiClient' oder im Kontextmenü aktiviert, dauerhaft über den Eintrag configed.host_displayfields 
+bei den Server-Hostparametern. Dann ist direkt in der Übersicht erkennbar, 
+für welche Clients die Eigenschaft gesetzt ist, und es kann auch danach gesucht und sortiert werden.
+
+
+
+.'{opsi-configed}': Erweiterte Spaltensicht für opsi-Clients
+image::opsi-configed-clientinfos.png["{opsi-configed}: Erweiterte Spaltensicht für opsi-Clients", width="150mm"]
+ 
 
 
 [[opsi-manual-configed-host-actions-wakeonlan]]
@@ -959,8 +976,7 @@ und zwar als Server-Defaults im Modus Serverkonfiguration
 (vgl. <<opsi-manual-configed-mode-selection>>)
 und clientspezifisch in der Clientkonfiguration.
 
-Konfigurationseinträge (config-Objekte des opsi-Servers) sind grundsätzlich
-Wertelisten.
+Konfigurationseinträge (config-Objekte des opsi-Servers) sind grundsätzlich Wertelisten.
 Als Werkzeug zur Bearbeitung der Werte dient daher der Listeneditor
 (vgl. <<opsi-manual-configed-property-editing>> )
 
