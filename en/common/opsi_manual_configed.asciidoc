@@ -14,7 +14,7 @@
 
 :Author:    uib gmbh
 :Email:     info@uib.de
-:Date:      7.12.2016
+:Date:      31.8.2017
 :Revision:  4.0.7
 :toclevels: 6
 
@@ -33,109 +33,123 @@ It works with the data from a running `opsiconfd` at least of version 4.0.6.
 
 You find the current version of the '{opsi-configed}' as an opsi-package for local installation on download.uib.de.
 In non-opsi systems the  '{opsi-configed}' can be simply installed by copying the required jar archive files as contained e.g. in the opsi-package. 
-For simplification in non-opsi systems, the setup program opsi-configed-setup.exe can be used which should be offered in http://download.uib.de/opsi4.0/helper/
+In order to automate this, the setup program opsi-configed-setup.exe can be used (from http://download.uib.de/opsi4.0/helper/ )
 
 The current stable version of the  '{opsi-configed}' is as well contained in the opsi-server installation, and is maintained
-by means of the Linux distribution methods. This version of the program is identical in code with the corresponding local version, but is primarily used
+by means of the Linux distribution methods. This version of the program has the identical code with the corresponding local version, but is primarily used
 as a Java Webstart application. It may be executed
 
-* via the webstart link on the general server page https://<servername>:4447
-* by the URL https://<servername>:4447/configed
+* via the webstart link on the start page https://<servername>:4447
+* via the URL https://<servername>:4447/configed
 * or by directly calling https://<servername>:4447/configed.jnlp
 
-It may as well be called via  
+Without using a browser you can execute (e.g. in a start menu link)  
 
 javaws  https://<servername>:4447/configed.jnlp
 
-which can be produces by local start menu entry (such as configured by the opsi product opsi-configed).
-
-If the server has a graphical desktop, the  '{opsi-configed}' can be started as well directly in the server via a desktop menu entry or
+If the server has a graphical desktop, the  '{opsi-configed}' can be started as well directly on the server via a desktop menu entry or
 in a shell by `/usr/bin/opsi-configed`.
-With non-gui servers you may only use the pure command line version using the option _querysavedsearch_ .
 
-If the required jar archives exist on every system the '{opsi-configed}' can be started with `java -jar configed.jar`.
+With non-gui servers there exist only the special non-gui start options
+
+* _--version_
+* _--help_ bzw. _-h_
+* _--querysavedsearch  [SAVEDSEARCH_NAME]_ bzw. _-qs  [SAVEDSEARCH_NAME]_
+* _--swaudit-pdf  FILE_WITH_CLIENT_IDS_EACH_IN_A_LINE  [OUTPUT_PATH]_
+
+
+If the additional required jar archives exist in the path the '{opsi-configed}' can be started  simply by `java -jar configed.jar`.
 
 With  `java -jar configed.jar --help` you'll get a list of the command line options
-
-
-Most of the times the opsi-configed will be called from the opsi server page with address
-
-`https://<servername>:4447`
-
-or, as applet, directly from
-
-`https://<servername>:4447/configed`
-
-The help option `java -jar configed.jar --help` shows the available command line options.
+.
 
 [source, prompt]
 ----
-java -jar configed.jar --help
-configed [OPTIONS] 
-   where an OPTION may be 
+-l LOC			--locale LOC			Set locale LOC (format: <language>_<country>)-h HOST			--host HOST			Configuration server HOST to connect to
+-u NAME			--user NAME			User for authentication
+-p PASSWORD	--password PASSWORD		password for authentication
+-c CLIENT		--client CLIENT		CLIENT to preselect
+-g CLIENTGROUP	--group CLIENTGROUP	CLIENTGROUP to preselect
+-t INDEX			--tab INDEX                   Start with tab number INDEX, index counting starts with 0, works only if a CLIENT is preselected
+-d PATH			--logdirectory PATH       Directory for the log files
+-r REFRESHMINUTES			--refreshminutes REFRESHMINUTES			Refresh data every REFRESHMINUTES  (where this feature is implemented, 0 = never)
+-qs [SAVEDSEARCH_NAME]		--querysavedsearch [SAVEDSEARCH_NAME]	On command line: tell saved host searches list resp. the search result for [SAVEDSEARCH_NAME])
+--gzip [y/n]							Activate gzip transmission of data from opsi server yes/no
+--sslversion PREFERRED_SSL_VERSION	Try to use this SSL/ TLS version
+--ssh-key SSHKEY						full path with filename from sshkey used for authentication on ssh server
+--ssh-passphrase PASSPHRASE			passphrase for given sshkey used for authentication on ssh server
+--version								Tell configed version
+--collect_queries_until_no N				Collect the first N queries; N = -1 (default, no collect), 0 = infinite 
+--help								Give this help
+--loglevel L 							Set logging level L, L is a number >= 0, <= 5
+--halt								Use  first occurring debug halt point that may be in the code
+--sqlgetrows							Force use sql statements by getRawData
+--nosqlrawdata						Avoid getRawData
+--localizationfile EXTRA_LOCALIZATION_FILENAME							Use EXTRA_LOCALIZATION_FILENAME as localization file, the file name format has to be: configed_LOCALENAME.properties
+--localizationstrings													Show internal labels together the strings of selected localization
+--swaudit-pdf FILE_WITH_CLIENT_IDS_EACH_IN_A_LINE [OUTPUT_PATH]		export pdf swaudit reports for given clients (if no OUTPUT_PATH given, use home directory)
 
-     -l, --locale  LOC    Set locale LOC (format: <language>_<country>)
-     -h, --host  HOST    Configuration server HOST to connect to
-     -u, --user  USER    User for authentication
-     -p, --password  PWD    Password for authentication
-     -d, --logdirectory DIR    Directory for the log files
-     -c, --client CLIENT    Start with selected client CLIENT
-     -g, --group GROUP    Start with activated group GROUP
-     -t, --tab    INDEX Start with tab number INDEX, index counting starts with 0, works only if a CLIENT is preselected
-    -r REFRESHMINUTES --refreshminuites REFRESHMINUTES    Refresh data every REFRESHMINUTES  (where this feature is implemented, 0 = never)
-     -qs, --querysavedsearch [SAVEDSEARCH_NAME]    On command line: tell saved host searches list resp. the search result for [SAVEDSEARCH_NAME])
-         --ssh-key SSHKEY    full path with filename from sshkey used for authentication on ssh server
-         --ssh-passphrase PASSPHRASE    passphrase for given sshkey used for authentication on ssh server
-         --collect_queries_until_no N    Collect the first N queries; N = -1 (default, no collect) N = infinite 
-         --help    Give this help
-         --gzip  [y/n]    Activate gzip transmission of data from opsi server yes/no (default yes)
-         --version    Tell configed version
-         --loglevel L    Set logging level to L
-         --halt    Use  first occurring debug halt point that may be in the code
-         --sqlgetrows    Force use sql statements by getRawData
-         --nosqlrawdata    Avoid getRawData
-         --localizationfile   Use the following file as localization file, the file name format has to be like configed_LOCALENAME.properties
-	 --localizationstrings  Show internal labels together with the strings of selected localization
-
-
-logging directory not yet set
-regularly exiting app with code 0
 
 ----
 
-
+[[opsi-manual-configed-logging]]
 ==== Logging of the '{opsi-configed}'
 
-By default, the '{opsi-configed}' uses its log level 3 "Info". The level can be raised to 4 "check" or 5 "debug". 
+By default, the '{opsi-configed}' uses its log level 3 "Info". The level can be raised to 4 "Check" or 5 "Debug". 
 
-To change the log level the command line option  --loglevel [LEVEL]  can be used.  It is not recommended to set level 5 if not already the start process
-has problems since, with level 5, the produced log file is very large; it is difficult to view. When the '{opsi-configed}' is running and a potential error situation 
+To change the log level the command line option  --loglevel [LEVEL]  can be used.  It is not recommended to set level 5 as long as not the start process needs to be inspected.
+For, with level 5, the produced log file is very large; it is difficult to get loaded and viewed. When the '{opsi-configed}' is running and a potential error situation 
 is expected the log level can be raised via the menu entry Help/ConfigEditor log level.
 
-Level 4 can be helpful since with it, the service calls are logged. Level 5 often offers a detailled view of actions.
+Level 4 can be helpful since with it, the service calls are logged. With luck, level 5 offers a detailled view of actions.
 
-By default the logfiles are deposed in the user home directory in the subfolder ".configed". The current logfile is named 
-configed.log, the up to 3 preceding versions are configed_0.log, configed_1.log, configed_2.log.
+Since version 4.0.7.6.12  the logfiles are deposed by default in the user home directory. In Windows the folder 
 
-In newer versions of windows the user home directory is interpreted as  
+c:\Users\[User name]\AppData\Roaming\opsi.org\log
 
-c:\users\[USERNAME]\appdata\local
+In Linux the default logfiles  folder is the (hidden) subfolder ".configed" in the user home directory.  
 
-Observe that the Windows Explorer shows a localized version of "users" and does not give "AppData" in the listing of "c:\users\[USERNAME]". 
-But the AppData folder contents appear, when "appdata" is supplemented to its superfolder name. 
+The current logfile is named configed.log, the up to 3 preceding versions are configed_0.log, configed_1.log, configed_2.log.
 
-The logging directory can be changed via the command line option "-d".  The opsi product opsi-configed uses this option to set the logging directory to 
+The logging directory can be changed via the command line option "-d".  
 
-c:\opsi.org\log
-
-But only local administrators can write to this location. If other users start the '{opsi-configed}'  the location 
-
-c:\users\[USERNAME]\appdata\local
-
-will therefore again be used.
+The current logfile path is displayed at the Help menu, entry "Current logfile". 
+The filename can there be retrieved in order to use it in an open file dialog of a viewer program or can be directly opened by the default application for .log files.
 
 
+[[opsi-manual-configed-language]]
+==== Choosing the language 
 
+The '{opsi-configed}' tries to use the language following the OS defined locale. If the matching translation file is missing
+English is used as default language. If terms in translations file are missing the expressions of the Englisch translation are used as
+default.
+
+When calling the '{opsi-configed}' you can set a locale via the command line option 
+
+-l resp. --locale 
+
+On principle, the locale has the format language_region, each component with two characters, eg. en_US of de_DE. It suffices to give the 
+two character language code since there no region specific variants prepared.
+
+In a running '{opsi-configed}' the language can be switched via the menu item 
+File/International. A change triggers a re-initialization of the program with a (nearly complete) rebuilding of
+the visual components in the new language. 
+
+Finally the call parameter
+
+--localizationfile 
+
+can be used for directly prescribing a localiziation file. The additional parameter
+
+--localizationstrings
+
+has the effect that the display of the localized expressions is combined with displaying the terms for which expressions should be 
+given. This can be used for producing and testing a localization file.
+
+
+
+
+[opsi-manual-configed-java-web-start-parameters]]
 ==== Custom start values with Java Web Start
 
 When starting via Java Web Start you can apply the same parameters as if the configed is started as a local application
