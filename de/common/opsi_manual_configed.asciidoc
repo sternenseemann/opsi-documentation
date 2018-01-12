@@ -510,11 +510,13 @@ Wenn ein Client markiert ist, sind alle Gruppen, denen er angehört, mit gefüll
 [[opsi-manual-configed-treeview-howto]]
 ==== How to ...
 
-Wenn Sie auf einen Knoten (bzw. eine Gruppe) klicken, so werden alle Clients, die sich unterhalb dieses Knotens befinden, im 'Client'-Tab angezeigt (aber kein Client zur Bearbeitung ausgewählt).
+Wenn Sie auf einen Baumknoten (eine Gruppe) klicken, so werden alle Clients, die sich unterhalb dieses Knotens befinden, in der Tabelle im 'Client'-Tab angezeigt (aber kein Client zur Bearbeitung ausgewählt).
 
-Wenn Sie auf einen Client klicken oder im Treeview mehrere Clients per Strg-Klick oder Shift-Klick markieren, so werden diese im Client-Tab angezeigt und zur Bearbeitung markiert.
+Wenn Sie auf in der Baumansicht einen Client klicken oder mehrere Clients per Strg-Klick bzw. Shift-Klick markieren, so werden diese im Client-Tab angezeigt und zur Bearbeitung markiert.
 
-Sie können auf diese Art und Weise auch den /oder die in Bearbeitung befindlichen Clients wechseln, während Sie in anderen Tabs (wie z.B. Logdateien) arbeiten, ohne zum Client-Tab zurückkehren zu müssen.
+Mit __Doppelklick __ auf eine Gruppe werden die ihr angehörenden Clients in der Tabelle angezeigt und direkt ausgewählt.
+
+Sie können auf diese Art und Weise auch den Client /oder die in Bearbeitung befindlichen Clients wechseln, während Sie in anderen Tabs (wie z.B. Logdateien) arbeiten, ohne zwischendurch zum Client-Tab zu gehen.
 
 
 In diesem Treeview werden die Gruppen angezeigt, die Sie gemäß <<opsi-manual-configed-client-selection-selecting>> angelegt haben.
@@ -528,15 +530,15 @@ Wenn Sie dies gemacht haben, werden Sie in einem Dialogfenster nach dem Namen de
 .'{opsi-configed}': Gruppenname eingeben
 image::opsi-configed-treeview-groupname.png["{opsi-configed}: Gruppenname und Beschreibung eingeben", width="46mm"]
 
-Eine Gruppe können Sie nun mit Clients füllen, indem Sie per Drag&Drop:
+Eine Gruppe können Sie nun mit Clients füllen, indem Sie mit gedrückter linker Maustaste per Drag&Drop:
 
-* Clients aus der tabellarischen Clientliste im Client-Tab in die Gruppe kopieren (linke Maustaste)
+* Clients aus der tabellarischen Clientliste im Tab "Clients" in die Gruppe ziehen
 
-* Clients aus dem Treeview unterhalb des Knotens 'CLIENT-LISTE' kopieren (linke Maustaste)
+* Clients aus einer anderen "normalen" Gruppe, z.B. dem Hauptknoten  'CLIENT-LISTE', ziehen = kopieren
 
-* Clients aus dem Treeview aus anderen Gruppen verschieben (linke Maustaste) oder kopieren (Strg-linke Maustaste)
+* Clients aus dem Treeview aus einer Direktory-Gruppe in eine andere Directory-Gruppe ziehen = verschieben
 
-Eine Gruppe kanna
+Eine Gruppe kann
 
 * per Drag & Drop in eine andere Gruppe verschoben werden;
 
@@ -546,9 +548,9 @@ Das Kontextmenü einer Gruppe dient dazu
 
 * die Gruppeneigenschaften zu bearbeiten;
 
-* bei Bedarf die Gruppen samt ihrer Untergruppen und aller Clientzuordnungen zu löschen;
+* bei Bedarf die Gruppe (samt ihren Untergruppen und allen Clientzuordnungen) zu löschen;
 
-* alle Clientzuordnungen unter Beibehaltung der Gruppe und ihrer Untergruppen zu entfernen;
+* alle Clientzuordnungen entfernen, wobei die Gruppe und ihre Untergruppen erhalten bleiben;
 
 * die enthaltenen Clients anzuzeigen und in einem Schritt auszuwählen.
 
