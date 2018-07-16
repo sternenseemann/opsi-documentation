@@ -3222,7 +3222,7 @@ liefert z.B. folgenden log:
 ----
 Set  $INST_Resultlist$ = getProductMap
     retrieving strings from getProductMap [switch to loglevel 7 for debugging]
-        (string   0)id=opsi-winst-test
+        (string   0)id=opsi-script-test
         (string   1)name=opsi-winst test
         (string   2)description=Test  and example script for opsi-winst
         (string   3)advice=
@@ -3240,7 +3240,7 @@ Set  $INST_Resultlist$ = getProductMap
 
 Set  $string1$ = getValue("id", $INST_Resultlist$)
     retrieving strings from $INST_Resultlist$ [switch to loglevel 7 for debugging]
-        (string   0)id=opsi-winst-test
+        (string   0)id=opsi-script-test
         (string   1)name=opsi-winst test
         (string   2)description=Test  and example script for opsi-winst
         (string   3)advice=
@@ -3255,7 +3255,7 @@ Set  $string1$ = getValue("id", $INST_Resultlist$)
         (string  12)installedmodificationtime=
         (string  13)actionrequest=setup
         
-  The value of the variable "$string1$" is now: "opsi-winst-test"
+  The value of the variable "$string1$" is now: "opsi-script-test"
 ----  
 
 [[opsi-winst-stringlist-create-by-value]]
@@ -3821,7 +3821,7 @@ line 9
 line 10
 ----
 
-Code from opsi-winst-test:
+Code from opsi-script-test:
 
 [source,winst]
 ----
@@ -4345,7 +4345,7 @@ else
 	LogWarning "failed"
 endif
 ----
-Für weitere Beispiele beachten Sie das Produkt 'opsi-winst-test'
+Für weitere Beispiele beachten Sie das Produkt 'opsi-script-test'
 und dort den Bereich '$Flag_calculate$ = "on"'
 
 Es gibt einen Vergleichsausdruck um zwei Strings wie (integer) Zahlen zu vergleichen. Wenn einer der Werte nicht in eine Zahl übertragen werden kann, wird ein Fehler ausgegeben. +
@@ -4838,7 +4838,7 @@ Die temporäre Variable %<temporary string variable>% muss nicht und darf nicht 
 
 Example: 
 
-Code from opsi-winst-test:
+Code from opsi-script-test:
 [source,winst]
 ----
 message "for to loop"
@@ -4931,7 +4931,7 @@ Syntax:
 
 Examples:
 
-Code from opsi-winst-test:
+Code from opsi-script-test:
 [source,winst]
 ----
 set $ConstTest$ = "5"
@@ -7310,7 +7310,7 @@ Die String-Funktion getLastExitCode gibt den ExitCode des letzten Prozessaufrufs
 [[opsi-winst-winbatch-examples]]
 ==== Beispiele
 
-Für weitere Beispiele beachten Sie das Produkt 'opsi-winst-test'
+Für weitere Beispiele beachten Sie das Produkt 'opsi-script-test'
 und dort den Bereich '$Flag_winst_winbatch$ = "on"'
 
 [[opsi-winst-dosbatch]]
@@ -7389,7 +7389,7 @@ Seit Version 4.11.5 sind als Parameter neben Stringkonstanten auch Stringvariabl
 
 Example:
 
-Code from opsi-winst-test:
+Code from opsi-script-test:
 [source,winst]
 ----
 comment "Testing parameters for ShellBatch"
@@ -7507,7 +7507,7 @@ Sollen die zurückgegebenen Strings weiterverarbeitet werden, so wird dringend g
 [[opsi-winst-dosbatch-examples]]
 ==== Beispiele
 
-Für weitere Beispiele beachten Sie das Produkt 'opsi-winst-test'
+Für weitere Beispiele beachten Sie das Produkt 'opsi-script-test'
 und dort den Bereich '$Flag_winst_dos$ = "on"'
 
 [[opsi-winst-registry]]
@@ -7953,7 +7953,7 @@ DefVar $ArrayStr$
 [[opsi-winst-opsiservicecall-examples]]
 ==== Beispiele
 
-Für weitere Beispiele beachten Sie das Produkt 'opsi-winst-test'
+Für weitere Beispiele beachten Sie das Produkt 'opsi-script-test'
 und dort den Bereich '$Flag_winst_opsiServiceCall$ = "on"'
 
 [[opsi-winst-execpython]]
@@ -8129,7 +8129,7 @@ powershell.exe set-executionpolicy RemoteSigned
 exit %ERRORLEVEL%
 
 [ExecWith_powershell]
-echo "powershell opsi-winst-test"
+echo "powershell opsi-script-test"
 if ($?) {Exit(0)}
 else {Exit(1)}
 ----
@@ -8151,7 +8151,7 @@ ExecWith_edit_me "notepad.exe"  WINST /letThemGo
 ----
 ruft Notepad auf und öffnet die Sektion als Datei (allerdings ohne die Zeilen die mit einem Semikolon	 beginnen, da der '{opsi-winst}/opsi-script' solche Zeilen als Kommentarzeilen interpretiert und vor der weiteren Behandlung der Sektion entfernt).
 
-Für zusätzliche Beispiele beachten Sie das Produkt 'opsi-winst-test'
+Für zusätzliche Beispiele beachten Sie das Produkt 'opsi-script-test'
 und dort den Bereich '$Flag_autoit3_test$ = "on"'.
 
 [[opsi-winst-ldapsearch]]
@@ -9421,7 +9421,7 @@ Zur Erstellung der Scripte sei auf folgende Dokumentationen verwiesen:
 * `opsi-winst Handbuch`
 * `opsi-winst reference card`
 
-Außerdem gibt es unter download.uib.de im Bereich Testing oder Stable das Produkt opsi-winst-test<Version>, indem ein setup.ins mit nahezu allen Winst-Befehlen enthalten ist.
+Außerdem gibt es unter download.uib.de im Bereich Testing oder Stable das Produkt opsi-script-test<Version>, indem ein setup.ins mit nahezu allen Winst-Befehlen enthalten ist.
 
 [[opsi-winst-exercises-lections]]
 === Erstellung von Winst-Scripten
