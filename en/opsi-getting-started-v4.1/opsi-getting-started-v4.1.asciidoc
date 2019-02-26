@@ -3771,7 +3771,8 @@ The package itself is merely a Gzip compressed cpio archive. This archive includ
 holds the files which are to be copied into the product directory (`/var/lib/opsi/depot/<productid>`).
 
 * `OPSI` +
-The file named `control` holds the product meta data (like the product dependencies). The files `preinst` and `postinst` will be executed before and after the installation. Any customer extensions might be added here.
+The file named `control` holds the product meta data (like the product dependencies). The files `preinst` and `postinst` will be executed before and after the installation. Any customer extensions might be added here. +
+Furthermore a file named `changelog.txt` may be used to document the differences between different package and program versions.
 
 
 [[opsi-getting-started-softwintegration-create-opsi-package-handling]]
@@ -3974,7 +3975,12 @@ type: bool
 name: myboolprop
 description: yes or no
 default: False
+----
 
+.Example of a `changelog.txt` file:
+
+[source,configfile]
+----
 [Changelog]
 mytest (3.14-1) testing; urgency=low
 

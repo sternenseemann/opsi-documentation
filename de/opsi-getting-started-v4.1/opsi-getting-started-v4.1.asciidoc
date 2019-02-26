@@ -3820,6 +3820,7 @@ In der Datei `control` finden sich die Metadaten des Produkts wie der Name, die 
 Weiterhin finden sich im Verzeichnis `OPSI` die Skripte `preinst` und `postinst`, die vor bzw. nach der Installation
 des Produkt-Pakets auf einem {opsi-depotserver} ausgeführt werden.
 Hier können Sie, wenn benötigt, entsprechende Erweiterungen unterbringen.
+Desweiteren wird hier eine `changelog.txt` Datei angelegt, in welcher die Unterschiede zwischen den einzelnen Paket- und Programmversionen dokumentiert werden können.
 
 [[opsi-getting-started-softwintegration-create-opsi-package-handling]]
 ==== Erstellen, Packen und Auspacken eines neuen Produktes
@@ -4028,7 +4029,12 @@ type: bool
 name: myboolprop
 description: yes or no
 default: False
+----
 
+.Beispiel einer 'changelog.txt' Datei
+
+[source,configfile]
+----
 [Changelog]
 mytest (3.14-1) testing; urgency=low
 
