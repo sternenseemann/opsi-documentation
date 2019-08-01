@@ -6,12 +6,17 @@
 ; credits: http://www.opsi.org/credits/
 ////
 
-:Author:    uib gmbh
+:Author:    d. oertel
 :Email:     info@uib.de
-:Date:      04.02.2019
+:Date:      01.08.2019
 :Revision:  4.1
 :toclevels: 6
 
 = opsi Setup Detector
+
+// http://www.methods.co.nz/asciidoc/userguide.html#X90
+:leveloffset: -1
+
 include::../common/opsi_manual_setup_detector.asciidoc[]
 
+:leveloffset: 0

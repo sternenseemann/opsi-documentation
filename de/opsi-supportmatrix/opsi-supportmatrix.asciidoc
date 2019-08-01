@@ -25,9 +25,6 @@ opsi supportmatrix opsi version 4.0.7 / 4.1
 Im folgenden finden Sie Übersichten auf welchen Plattformen opsi
 als Server bzw. als Client läuft.
 
-include::../common/opsi_manual_supportmatrix.asciidoc[]
-
-<<<
 
 include::../common/opsi_manual_supportmatrix-winclient.asciidoc[]
 
@@ -37,7 +34,6 @@ include::../common/opsi_manual_supportmatrix-winclient.asciidoc[]
 
 include::../common/opsi_manual_supportmatrix-linclient.asciidoc[]
 
-<<<
 
 include::../common/opsi_manual_supportmatrix-uefi.asciidoc[]
 
