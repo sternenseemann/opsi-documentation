@@ -207,17 +207,29 @@ image::osd_page_product2_de.png["Produktkonfiguration 2",width=500]
 .OSD Produkt erzeugen
 image::osd_page_create_de.png["Produkt erzeugen",width=500]
 
-* als 'Basisverzeichnis' muss ein beschreibbarer Share auf die opsi Workbench eingetragen sein
+* 'Pfad zur opsi-workbench' ist ein Laufwerksbuchstabe oder UNC Pfad auf dem der share `opsi_workbench` Ihres opsi-servers gemounted ist.
 * aus Sicherheitsgründen kann ein opsi Paket nur dann neu erzeugt werden, wenn es noch nicht vorhanden ist. Falls ein bestehendes Paket überschrieben werden soll, muss zuerst das Verzeichnis von der opsi Workbench gelöscht werden.
 
 Links neben dem Button 'Erzeuge opsi Paket' befinden sich drei mögliche Auswahl Optionen, die sich auf die Funktion des Buttons beziehen:
 
-* *opsi Paket erzeugen:* falls noch nicht vorhanden, wird das Verzeichnis für das neue opsi Paket erzeugt und die entsprechenden Dateien erstellt und gepatcht. Es wird kein Paket gebaut.
-* *opsi Paket erzeugen und opsi Packet Builder starten:* wie oben werden das Verzeichnis und die Dateien erzeugt und dann zum Packen und installieren der 'opsi Packet Builder' gestartet. Die Paket Daten werden beim Aufruf in diesen übernommen und das Paket kann gebaut und installiert werden. Danach sollte der 'opsi Packet Builder' wieder geschlossen werden, damit er für den nächsten Aufruf neu gestartet werden kann.
-* *erzeugen und auto -build -install -quiet:* wie oben werden das Verzeichnis und die Dateien erzeugt und dann zum Packen und installieren der 'opsi Packet Builder' gestartet. Die Paket Daten werden beim Aufruf in diesen übernommen und das Paket wird automatisch gebaut und installiert, falls die entsprechenden Häkchen gesetzt sind. Wenn z.B. das Paket nur gepackt, aber nicht installiert werden soll, kann das Häkchen bei *install* entfernt werden. Zusätzlich kann das Häkchen bei *quiet* gesetzt werden, dann werden die angewählten Funktionen automatisch ausgeführt, ohne dass die Benutzeroberfläche des 'opsi Packet Builders' angezeigt wird. Ansonsten sollte der 'opsi Packet Builder' dann wieder geschlossen werden, damit er für den nächsten Aufruf neu gestartet werden kann.
+`Erstellungs Modus` ist ein Auswahlbereich bei dem die Vorgänge bei der Paketerstellung bestimmt werden können:
 
+* `Erstelle opsi Produkt Dateien` erzeugt falls noch nicht vorhanden, den Verzeichnisbaum für das neue opsi Paket auf der gewählten `opsi-Workbench`. Die für das Pakte benötigten Dateien werden erzeugt bzw. kopiert.
+
+* `Erstelle opsi Produkt Dateien und baue opsi Paket` führt die im ersten Punkt angeführten Vorgänge durch. +
+Zusätzlich wird der `opsi Package Builder` aufgerufen um aus dem erstellen Verzeichnisbaum das opsi-Paket zu erstellen. Die genauen Abläufe werden dabei duch das Auswahlfeld `Baumodus` bestimmt:
+
+** `nur bauen` startet den `opsi Package Builder` ohne interaktive GUI, erstellt aus dem Verzeichnisbaum per Server Befehl `opsi-makepackage` ein opsi Paket und beendet den `opsi Package Builder` nach getaner Arbeit wieder.
+
+** `bauen und installieren` startet den `opsi Package Builder` ohne interaktive GUI, erstellt aus dem Verzeichnisbaum per Server Befehl `opsi-makepackage` ein opsi Paket installiert das Paket per Server Befehl `opsi-package-manager` und beendet den `opsi Package Builder` nach getaner Arbeit wieder.
+
+* `Erstelle opsi Produkt Dateien und starte interaktiven Pakagebuilder` führt die im ersten Punkt angeführten Vorgänge durch. +
+Zusätzlich wird der `opsi Package Builder` interaktiv aufgerufen. +
+Sie müssen diesen selbst beenden um zu dem `opsi-setup-detector` zurückzukehren
 Zu Installation, Konfiguration und Bedienung des Community Projektes 'opsi Packet Builder' siehe https://forum.opsi.org/viewforum.php?f=22
 
+* `opsi-Paket erstellen` ist der Button welcher die Paketerstellung veranlasst.
+Aus Sicherheitsgründen kann ein opsi Paket nur dann neu erzeugt werden, wenn es noch nicht vorhanden ist. Ist bereits ein Paket mit diesem Namen vorhanden, so erscheint eine Rückfrage ob das vorhandene Verzeichnis gelöscht werden darf.
 
 
 [[opsi-setup-detector-use-double-analyze-and-create]]
@@ -226,16 +238,21 @@ Zu Installation, Konfiguration und Bedienung des Community Projektes 'opsi Packe
 .OSD Ergebnis der Analyse des zweiten Setupprogramms
 image::osd_page_setup2_de.png["Ergebnis der Analyse 2",width=500]
 
+Dieser Punkt entspricht dem oben beschriebenen `Analysiere einzelne setup Datei und erzeuge ein opsi Paket` mit der folgenden Ergänzung: +
+Es werden zwei Setupprogramme für die Architekturen 32 und 64 Bit abgefragt und anlaysiert. Das Produkt bekommt ein zusätzliches Property: `install_architecture` mit den möglichen Werten: `32bitonly`, `64bitonly`, `both`, `systemspecific`.
+
 
 [[opsi-setup-detector-use-single-analyze-only]]
 ===== Osd: Analysiere einzelne setup Datei 
 
-# has to be written
+Dieser Punkt entspricht dem oben beschriebenen `Analysiere einzelne setup Datei und erzeuge ein opsi Paket` mit der folgenden Einschränkung: +
+Nach der Analyse wird der Vorgang abgebrochen.
 
 [[opsi-setup-detector-use-template-create]]
 ===== Osd: Eine opsi Paketvorlage (Template) erzeugen
 
-# has to be written
+Dieser Punkt entspricht dem oben beschriebenen `Analysiere einzelne setup Datei und erzeuge ein opsi Paket` mit der folgenden Einschränkung: +
+es wird nicht nach einer Setup Datei gefragt und damit entfällt auch die Analyse. Vielmehr wird eine allgemeine Scriptvorlage erzeugt.
 
 [[opsi-setup-detector-configuration]]
 ==== Osd: Konfiguration
@@ -243,41 +260,192 @@ image::osd_page_setup2_de.png["Ergebnis der Analyse 2",width=500]
 .OSD Konfiguration
 image::osd_config_dlg_de.png["Konfigurationsdialog",width=300]
 
+.Geforderte Konfigurationen:
+
+* Name +
+(Wird verwendet für Einträge in die changelog.txt)
+
+* eMail +
+(Wird verwendet für Einträge in die changelog.txt)
+
+* Pfad zur opsi-work-bench +
+Pfad zum Verzeichnis in dem die opsi-Pakete erstellt werden sollen.
+Dies ist idealerweise der Pfad zu der Stelle an der die opsi_workbench Ihres opsi-servers gemountet ist.
+
+* "Pfad zum OpsiPackageBuilder +
+Der OpsiPackageBuilder wird verwendet um via ssh die opsi Pakete auf dem opsi-server zu bauen. siehe auch: \n"
+"https://forum.opsi.org/viewtopic.php?f=22&t=7573\n"  
+////
+"Path to the OpsiPackageBuilder. OpsiPackageBuilder is used to build the opsi packages via ssh. see: https://forum.opsi.org/viewtopic.php?f=22&t=7573"
+////
+
+.Programmverhalten
+
+* createradioindex +
+Auswahl des RadioButtons 'Erstellungs Modus'
+////
+selects the Create mode Radiobutton
+////
+
+ buildadioindex +
+Auswahl des RadioButtons 'Bau Modus'
+////
+selects the Build mode Radiobutton
+////
+
+.Modifikation des Produkts:
+
+* import_libraries +
+Liste der opsi-script Bibliotheken. +
+Eine pro Zeile. Darf leer sein. Beispiel: +
+`myInstallhelperlib.opsiscript`
+////
+List of opsi-script libraries that have to be imported. +
+One per line. May be empty. Example: +
+`myinstallhelperlib.opsiscript`
+////
+
+*Konfigurationen bei denen Sie opsi-scriptcode für bestimmte stellen eingeben können*: +
+opsi-script code Zeilen welche eingefügt werden
+Ein opsi-script Befehl pro Zeile. Darf leer sein. Beispiel: +
+comment \"Installation finished..."
+////
+List of opsi-script code lines that should be included. +
+One per line. May be empty. Example: +
+comment "Installation finished..."
+////
+
+* postinstalllines +
+Zeilen welche nach dem Ende der Installation eingefügt werden.
+////
+Lines that should be included after the installation finished.
+////
+
+############################
+#: osdconfigdlg.rspostuninstalllines
+#, fuzzy
+msgctxt "osdconfigdlg.rspostuninstalllines"
+msgid ""
+"List of opsi-script code lines that should be included after the uninstallation finished.\n"
+"One per line. May be empty. Example:\n"
+"comment \"Uninstall finished...\"\n"
+msgstr ""
+"opsi-script code Zeilen welche nach dem Ende der Deinstallation eingefügt werden.\n"
+"Ein opsi-script Befehl pro Zeile. Darf leer sein. Beispiel:\n"
+"comment \"Uninstall finished...\"\n"
+
+#: osdconfigdlg.rspreinstalllines
+#, fuzzy
+msgctxt "osdconfigdlg.rspreinstalllines"
+msgid ""
+"List of opsi-script code lines that should be included before the installation starts. \n"
+"One per line. May be empty. Example: \n"
+"comment \"Start the installation ...\"\n"
+msgstr ""
+"opsi-script code Zeilen welche vor dem Begrinn der Installation eingefügt werden.\n"
+"Ein opsi-script Befehl pro Zeile. Darf leer sein. Beispiel:\n"
+"comment \"Start the installation ...\"\n"
+
+#: osdconfigdlg.rspreuninstalllines
+#, fuzzy
+msgctxt "osdconfigdlg.rspreuninstalllines"
+msgid ""
+"List of opsi-script code lines that should be included before the uninstallation starts.\n"
+"One per line. May be empty. Example:\n"
+"comment \"Start the uninstallation ...\"\n"
+msgstr ""
+"opsi-script code Zeilen welche vor dem Beginn der Deinstallation eingefügt werden.\n"
+"Ein opsi-script Befehl pro Zeile. Darf leer sein. Beispiel:\n"
+"comment \"Start the uninstallation ...\"\n"
+
+#: osdconfigdlg.rsregisterinfilemanager
+#, fuzzy
+msgctxt "osdconfigdlg.rsregisterinfilemanager"
+msgid "Should this program be registred to the Filemanger (Explorer) context menu ?"
+msgstr "Soll dieses Programm für das Kontextmenü des Dateimanagers (Explorer) registriert werden ?"
+
+#: osdconfigdlg.rsworkbench_mounted
+#, fuzzy
+msgctxt "osdconfigdlg.rsworkbench_mounted"
+msgid "Automatically detected. Is the opsi workbench reachable at workbench_Path."
+msgstr "Automatisch erkannt. Ist die opsi-work-bench unter dem angegebenen Pfad 'workbench_path' erreichbar."
+
+################################################
+
 [[opsi-setup-detector-customizing]]
-==== Osd: Anpassung an eigne Bedüfnisse
+==== Osd: Anpassung an eigene Bedüfnisse
 
 # has to be written
+
 
 [[opsi-setup-detector-troubleshooting]]
 ==== Osd: Probleme und Lösungen
 
-# has to be written
+Der osd ist so designt, das es möglichst einfach ist ihn kontinuierlich weiter zupflegen und zu erweitern. Bestimmte Anpassungsmöglichkeiten und Hilfen bei Problemen werden Ihnen im folgenden vorgestellt. +
+Haben Sie Ideen und /oder Wünsche darüberhinaus so nehmen Sie bitte zu uns Kontakt auf (info@uib.de) - wir freuen uns über jede Anregung.
+
 
 [[opsi-setup-detector-troubleshooting-logging]]
 ===== Logging
 
 Der osd erzeugt Logdateien unter
-`c:\opsi.org\applog\opsisetupdetector.log`.
-
+`c:\opsi.org\applog\opsisetupdetector.log`. +
+Ältere Logdateien liegen im selben Verzeichnis als  `opsisetupdetector_0.log` bis `opsisetupdetector_8.log`.
 
 Die Logdatei wird sehr groß, weil sie die kompletten Daten der Analyse der Setupdatei(en) enthält. Zur Analyse der Logdatei empfehlen wir den `opsi-log-viewer` oder einen anderen Editor welcher die nicht benötigten Loglevel ausblenden kann, da die im Setup gefundenen Textmuster (auf Loglevel 8) in vielen Fällen nicht intressieren. 
 
 [[opsi-setup-detector-troubleshooting-lang]]
 ===== Sprachunterstützung
 
-Beim Start des Programmes wird automatisch ermittelt, unter welcher Sprache das Windows System läuft. Wenn für die Sprache 'xx' eine passende Sprachdatei 'locale\opsisetupdetector.xx.po' gefunden wird, wird diese verwendet. Von Haus aus unterstützt der 'opsi Setup Detector' Deutsch und Englisch. Weitere Sprachen können recht einfach über eine entsprechend zu übersetzende Sprachdatei nachgerüstet werden.
+Beim Start des Programmes wird automatisch ermittelt, unter welcher Sprache das Windows System läuft. Wenn für die Sprache eine passende Sprachdatei gefunden wird, wird diese verwendet. Wird keine unterstützte Sprache gefunden, so wird Englisch verwendet. +
+Sie können die Sprache wählen über den Menüpunkt `Languages` bzw. beim Aufruf über den Kommandozeilen Parameter `--lang=xx` wobei `xx` für die gewählte Sprache steht.
+
+Derzeit unterstützt der 'opsi Setup Detector' : +
+
+* Deutsch 
+* Englisch
+* Spanisch
+
+Weitere Sprachen können recht einfach über eine entsprechend zu übersetzende Sprachdatei nachgerüstet werden. +
+Die Übersetzungen erfolgen über das Portal: 
+https://www.transifex.com/opsi-org/ +
+Wir freuen uns über Ihre Unterstützung
 
 [[opsi-setup-detector-troubleshooting-unknown-installer]]
 ===== Unknown Installer
 
-# has to be written
+Sicher werden Sie im Rahmen der Arbeit mit dem osd mal auf die Meldung `Unkonown Installer` stoßen. Dann hat der osd das Installer-Framework mit dem dieser Installer gemacht ist nicht erkannt. +
+Vorschläge: +
+* Prüfen Sie ob es tatsächlich ein Installer ist. (Klingt blöd, ist mir aber selbst schon mal so gegangen)
+* Suchen Sie im Internet nach den Stichwörtern 'silent' und Produktname
+* Vielleicht helfen die Links auf dieser Seite weiter: +
+https://forum.opsi.org/wiki/doku.php?id=userspace:software_integration_web_links
+
+Wenn Sie das Problem gelöst haben, lassen Sie uns (und die opsi Community) an Ihrem Wissen und Erfahrung teilhaben
+Das neue (interne) Design des osd macht es möglich vergleichweise leicht neue Installer aufzunehmen. Was wir benötigen ist : +
+* Beispiel Setupprogramm
+* Hersteller bzw. typische Kommandozeilen Schalte für Installation und Deinstalltion
+* Informative Links zu dem Problem
 
 [[opsi-setup-detector-troubleshooting-wrong-installer]]
 ===== Falsch Erkennung
 
-# has to be written
+Gerade im Rahmen der zunehmenden Anzahl von unterstützten (also erkannten) Installern führt auch schonmal zu einer Falscherkennung. +
+Die passiert insbesondere dann gerne wenn ein Installer mehrere Softwarekomponenten umfasst welche wiederum mit unterschiedlichen Installern gepackt sind. +
+Sollten Sie ein solches Problem entdecken, so informieren Sie uns bitte und halten das entsprechende Beispiel und die richtige Lösung bereit.
 
-[[opsi-setup-detector-troubleshooting-wrong-bugs]]
+[[opsi-setup-detector-troubleshooting-bugs]]
 ===== Programmfehler
 
-# has to be written
+Sollte der osd Dinge tun die er nicht sollte, so sichern Sie bitte die dazu passendende Logdatei aus `c:\opsi.org\applog\` (siehe  auch: <<opsi-setup-detector-troubleshooting-logging>>) und informieren Sie uns über das Problem auf info@uib.de. Halsten Sie auch die Beispieldatei bereit, da wir diese eventuell benötigen um das Problem nachzuvollziehen.
+
+[[opsi-setup-detector-troubleshooting-sorce]]
+===== Source Code und Lizenz
+
+Der osd ist Lizenziert unter der AGPLv3.
+
+Den Sourcode finden Sie unter: +
+
+* https://github.com/opsi-org/lazarus/tree/master/opsi-misc/opsisetupdetector
+
+* https://gitlab.com/opsi-org
