@@ -295,12 +295,12 @@ dotnetfx                  4.7.2-3                 .NET Framework
 Paket zur Installation der Dotnet Framework Versionen 4.5 und höher insbesondere auf Windows 7 /2008 R2 / 8.1 / 10 / 2012 R2
 Auf Windows Versionen (neuer Windows 7) kann auch Dotnet 3.5 installiert werden.
 
-version:: ["3.5", "4.0", "4.5", "4.5.1", "4.5.2", "4.6", "4.6.1", "4.6.2", "4.7", "4.7.1", "4.7.2", "latest", "latestAnd3.5"]
-values: ["3.5", "4.0", "4.5", "4.5.1", "4.5.2", "4.6", "4.6.1", "4.6.2", "4.7", "4.7.1", "4.7.2", "latest", "latestAnd3.5"]
+version:: The Microsoft .NET Framework 4.8 is a highly compatible, in-place update to the Microsoft .NET Framework 4, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7 , 4.7.1 and 4.7.2 +
+values: ["3.5", "4.0", "4.5", "4.5.1", "4.5.2", "4.6", "4.6.1", "4.6.2", "4.7", "4.7.1", "4.7.2", "latest", "latestAnd3.5"] +
 default: ["latest"]
 
-rerundotnethotfix::rerun dotnetfx-hotfix after installation if possible
-values: ["false", "true"]
+rerundotnethotfix:: rerun dotnetfx-hotfix after installation if possible +
+values: ["false", "true"] +
 default: ["true"]
 
 install_language_languagepack:: install_language_languagepack
@@ -308,8 +308,8 @@ values: ["auto", "de", "en", "fr"]
 default: ["auto"]
 
 os-package:: Here you can switch from which OS-Version to be install Dotnet3.5,
-auto=win10 or opsi-local-image-win10 (default); other ProductID for netboot-product
-values: ["auto", ]
+auto=win10 or opsi-local-image-win10 (default); other ProductID for netboot-product +
+values: ["auto"] +
 default: ["auto"]
 
 ===== misc dotnetfx-hotfix
