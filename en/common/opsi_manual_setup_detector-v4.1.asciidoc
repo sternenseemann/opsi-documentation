@@ -16,271 +16,267 @@
 include::../common/opsi_terms.asciidoc[]
 
 [[opsi-setup-detector]]
-=== opsi Setup Detector (frei)
+=== opsi Setup Detector (free)
 
 [[opsi-setup-detector-use-quickstart]]
 ==== opsi Setup Detector Quickstart
 
-Nach dem erstmaliegen Start des opsi-setup-detector erscheint ein Konfigurationsmaske.
-Hier sind die folgenden Angaben erforderlich:
+After the first start of the opsi-setup-detector a configuration mask appears.
+The following information is required:
 
-* Name (Wird verwendet für Einträge in die changelog.txt)
+* Name (Used for entries in the changelog.txt)
 
-* eMail (Wird verwendet für Einträge in die changelog.txt)
+* Email (Used for entries in the changelog.txt)
 
-* Pfad zum Verzeichnis in dem die opsi-Pakete erstellt werden sollen.
-Dies ist idealerweise der Pfad zu der Stelle an der die opsi_workbench Ihres opsi-servers gemountet ist.
+* Path to the directory in which the opsi packages are going to be created.
+This is ideally the path to the place where the opsi_workbench of your opsi-server is mounted.
 
 .opsi-setup-detector Notwendige Konfiguration beim ersten Start
 image::osd_config_dlg_en.png["Konfigurationsdialog",width=300]
 
-Auf der Startseite wählen Se die gewünschte Aufgabe und folgen den Dialogen bzw. wählen den Button 'Nächste Schritt'.
+At the start page select the desire task and follow the dialogs (click 'Next step')
 
 .opsi-setup-detector Start
 image::osd_page_start_en.png["Startpage",width=400]
 
 [[opsi-setup-detector-introduction]]
-==== Einführung: opsi Setup Detector (opsi-setup-detector) Was ist das ? 
+==== Introduction: opsi Setup Detector (opsi-setup-detector) What is this ?
 
-Die Erstellung von opsi-Paketen aus verfügbaren Setup-Programmen ist
-eine wiederkehrende Aufgabe beim Betrieb von opsi.
-Der opsi-setup-detector soll Ihnen auf zwei Weisen helfen dies zu vereinfachen:
+The creation of opsi-packages from available setup programs is
+a recurring task when operating opsi.
+The opsi-setup-detector should help you to simplify this in two ways:
 
-* Erkennung des Typ des Setup-Programms und die Ermittlung der dafür nötigen Kommandozeilen Parameter
+* Detection of the type of the setup program and the determination of the necessary command line parameters
 
-* Erstellung eins opsi-Paketes mit den nötigen Skripten für Installation und Deinstallation.
+* Creation of an opsi package with the necessary scripts for installation and deinstallation.
 
-* Gegenbenfalls Einbindung des opsi-package-builders zur weiteren Bearbeitung des estellten Paketes bzw. um das Paket zu bauen und zu installieren
+* If necessary, include the opsi-package-builder for further processing of the provided package or to build and install the package.
 
-Die meisten Setup-Programme werden von den Entwicklern nicht selbst geschrieben,
-sondern basieren auf unterschiedlichen Frameworks. Der opsi-setup-detector versucht nun in dem Setup-Programm Muster zufinden welche für bestimmte Frameworks spezifisch sind und anhand von diesen das Framework zu erkennen und damit die notwendigen Informationen zu ermitteln.
+Most setup programs are not written by the developers themselves,
+but are based on different frameworks. The opsi-setup-detector now tries to find patterns in the setup program which are specific for certain frameworks and to recognize the framework on the basis of these and thus to determine the necessary information.
 
-Das kann dazu führen, das Sie mit wenigen Klicks ein fertiges opsi-Paket bekommen. Häufig bekommen Sie ein opsi-Paket dem nach erstmaliger installation der Programms (z.B. mit dem erstelleten opsi-Paket) noch weite Informationen hinzugefügt werden müssen.
+This can lead to you getting a finished opsi package with just a few clicks. Often you get an opsi-package to which you have to add further information after the first installation of the program (e.g. with the created opsi-package).
 
-Natürlich kann es auch zu Problemen kommen.
-Die gängigsten sind im Kapitel `Trouble Shooting` <<opsi-setup-detector-troubleshooting>> beschrieben.
-
-Dort ist auch beschrieben wie Sie uns helfen können nach der Lösung eines aufgetretenen Problems den opsi-setup-detector besser zu machen.
+Of course there can also be problems.
+The most common are described in the chapter `Trouble Shooting` <<opsi-setup-detector-troubleshooting>>
+There is also described how you can help us to improve the opsi-setup-detector after solving a problem.
 
 [[opsi-setup-detector-installation]]
-==== Installation des opsi-setup-detector
+==== Installation of the opsi-setup-detector
 
-Den opsi-setup-detector gibt es derzeit für Windows und Linux.
+The opsi-setup-detector is currently available for Windows and Linux.
 
-Sie können den opsi-setup-detector per opsi installieren:
+You can install the opsi-setup-detector via opsi:
 
-Das Paket `opsi-setup-detector` gehört zu den opsi Standardprodukten und sollte auf Ihrem opsi-server installiert sein. Falls nicht, mit:
+The package `opsi-setup-detector` belongs to the opsi standard products and should be installed on your opsi-server. If not, use:
 
 [source,prompt]
 ----
 opsi-package-updater install opsi-setup-detector
 ----
 
-können Sie es auf dem opsi-server installieren.
+to install it on the opsi-server.
 
-Ein Setup-Programm um den opsi-setup-detector auch ohne opsi zu installieren, ist in Vorbereitung.
+A setup program to install the opsi-setup-detector without opsi is in the works.
 
-Die Funktionalität der Linux-Version ist in folgen Features eingeschränkt,
-da bestimmte Programm zur Analyse von Setup-Programmen aus bestimmten Frameworks nich für Linux zur verfügung stehen:
+The functionality of the Linux version is limited,
+since certain programs for analyzing setup programs from certain frameworks are not available for Linux:
 
-* Genauere Analyse von Inno-Setups mangels innounpack.exe für Linux
+* More detailed analysis of Inno-Setups due to the lack of innounpack.exe for Linux
 
-* Genauere Analyse von wix-setups mangels dark.exe für Linux
+* More detailed analysis of wix-setups due to the lack of dark.exe for Linux
 
 [[opsi-setup-detector-prerequires]]
-==== Vorbereitung zur Verwendung des opsi-setup-detector
+==== Requirements in order to use the opsi-setup-detector
 
-Empfehlung:
+Recommendation:
 
-* Sie sollten den share opsi_workbench ihres opsi-servers auf Ihrem Rechner gemountet haben.
+* You should have mounted the share opsi_workbench of your opsi-server on your computer.
 
-* Sie sollten idealer weise den opsi-Package-Builder auf Ihrem Rechner installiert haben
+* Ideally you should have the opsi-Package-Builder installed on your computer.
 
 [[opsi-setup-detector-opb-integration]]
-==== Integration des opsi-package-builders durch den opsi-setup-detector
+==== Integration of the opsi-package-builder through the opsi-setup-detector
 
 .opsi-setup-detector Create and Build Modes
 image::osd_page_create_modes_with_opb_en.png["Create and Build Modes",width=400]
 
-Auf dem Tab `Erzeugen` finden Sie eine Auswahl für den Erstellungsmodus.
-Der Default ist `Erstelle opsi Produkt Dateien`
+On the tab `Create` you will find a selection for the creation mode.
+The default is `Create opsi product files`.
 
-Wählen sie eines der anderen Modi, so wird ein installierter opsi-package-builder mit aufgerufen.
+If you choose one of the other modes, an installed opsi-package-builder will be called.
 
-Im Falle von `... und baue opsi Paket` wird der opb im Hintergrund aufgerufen um das vom opsi-setup-detector erstellte Verzeichnis mit den opsi Dateien zu einem Paket zu bauen. Dabei kann über die Checkboxen 'Bau Modus' ausgeählt werden, ob die Bau 'still'sein soll, ob das Paket gebaut werden soll und ob das gebaute Paket installiert werden soll.
+In case of `... and build opsi package` the opb is called in the background to build the directory created by the opsi-setup-detector with the opsi files to a package. The checkboxes 'Build mode' can be used to select whether the build should be 'silent', if the package should be built and if the built package should be installed.
 
-Ohne eine dieser Optionen entspricht dieser Aufruf dem letzten Erstell Modus: 
-'... und starte interaktiven Packagebuilder'
+Without any of these options, this call corresponds to the last build mode:
+'... and start interactive package builder'.
 
 [[opsi-setup-detector-use]]
-==== Verwendung des opsi Setup Detectors
+==== Usage of the opsi setup detector
 
 [[opsi-setup-detector-use-start]]
-===== Opsi-setup-detector Start und notwendige Konfigurationen
+===== Opsi-setup-detector Start and necessary configurations
 
-Der opsi-setup-detector kann gestartet werden aus der Prorgramm Menü und findet sich dort unter `opsi.org`. Der opsi-setup-detector wird unter Windows auch in das Kontextmenü des Explorers eingebundne, um so per Rechte Maustaste Setup-Programm direkt zur Analyse aufrufen zu können.
+The opsi-setup-detector can be started from the programs menu and can be found there under `opsi.org`. Under Windows the opsi-setup-detector is also integrated into the context menu of the explorer in order to call the setup program directly for analysis with the right mouse button.
 
-.opsi-setup-detector Notwendige Konfiguration beim ersten Start
-image::osd_config_dlg_en.png["Konfigurationsdialog",width=200]
+.opsi-setup-detector Necessary configuration on first startup
+image::osd_config_dlg_en.png["Configuration dialog",width=200]
 
-Nach dem erstmaliegen Start des opsi-setup-detector erscheint ein Konfigurationsmaske.
-Hier sind die folgenden Angaben erfrderlich:
+After the first start of the opsi-setup-detector a configuration mask appears.
+The following information is required here:
 
-* Name (Wird verwendet für Einträge in die changelog.txt)
+* Name (Used for entries in the changelog.txt)
 
-* eMail (Wird verwendet für Einträge in die changelog.txt)
+* Email (Used for entries in the changelog.txt)
 
-* Pfad zum Verzeichnis in dem die opsi-Pakete erstellt werden sollen.
-Dies ist idealerweise der Pfad zu der Stelle an der die opsi_workbench Ihres opsi-servers gemountet ist.
+* Path to the directory in which the opsi packages should be created.
+This is ideally the path to the place where the opsi_workbench of your opsi-server is mounted.
 
 .opsi-setup-detector Start
 image::osd_page_start_en.png["Startpage",width=400]
 
-Auf der Startseite wählen Se die gewünschte Aufgabe und folgen den Dialogen bzw. wählen den Button 'Nächste Schritt'.
+On the main window, select the desired task and follow the dialogs or select the 'Next step' button.
 
-Die Angebotenen Aufgaben:
+The offered tasks:
 
-. `Analysiere einzelne Setup Datei und erzeuge ein opsi Paket` +
-Hier wird von einer Setup-Datei ausgegangen und der gesamte Ablauf bis zur Erzeugung eines opsi-Paketes durchlaufen. Dieser Prozeß ist im nächsten Kapitel beschrieben.
+. `Analyze single setup file and create an opsi package` +
+Here, a setup file is analyzed and the entire process is run until an opsi package is created. This process is described in the next chapter.
 
-. `Analysiere zwei Setup Dateien (32 und 64 Bit) und erzeuge ein opsi Paket` +
-Verläuft analog zu dem obigen Punkt 1 mit folgenden Unterschieden: +
-Es werden zwei Setupprogramme für die Architekturen 32 und 64 Bit abgefragt und anlaysiert. Das Produkt bekommt ein zusätzliches Property: `install_architecture` mit den möglichen Werten: `32bitonly`, `64bitonly`, `both`, `systemspecific`.
+. `Analyze two setup files (32 and 64 bit) and create an opsi package` +
+The procedure is the same as in point 1 above with the following differences: +
+Two setup programs for the 32 and 64 bit architectures are queried and analyzed. The product gets an additional property: `install_architecture` with the possible values: `32bitonly`, `64bitonly`, `both`, `systemspecific`.
 
-. `Analysiere einzelne setup Datei` +
-erläuft analog zu dem obigen Punkt 1 nur das nach der Analyse des Setup-Programms abgebrochen wird.
+. `Analyze single setup file` +
+runs, similarly to point 1 above, only that is aborted after the analysis of the setup program.
 
-. `Eine opsi Paketvorlage (Template) erzeugen` +
-Dieser Punkt fragt nicht nach einer Setup-Datei, sondern erstellt ein Template analog dem opsi-Produkt `opsi-template` nur das hier die Angaben aus der Produktkonfiguration bereits übernommen werden.
+. `Create an opsi package template` +
+This point does not ask for a setup file, but creates a template similar to the opsi product `opsi-template` only that here the information from the product configuration is already taken over.
 
 [[opsi-setup-detector-use-single-analyze-and-create]]
-===== Opsi-setup-detector: Analysiere einzelne setup Datei und erzeuge ein opsi Paket 
+===== Opsi-setup-detector: Analyze single setup file and create an opsi package
 
 .opsi-setup-detector Start
 image::osd_page_start_en.png["Startpage",width=500]
 
-.opsi-setup-detector Analyse
-image::osd_page_analyze_en.png["Analyse",width=500]
+.opsi-setup-detector analysis
+image::osd_page_analyze_en.png["Analysis",width=500]
 
-.opsi-setup-detector Ergebnis der Analyse
-image::osd_page_setup1_en.png["Ergebnis der Analyse",width=500]
+.opsi-setup-detector Result of the analysis
+image::osd_page_setup1_en.png["Result of analysis",width=500]
 
-* Erkannter Setup Typ: Typ des erkannten Installer
+* Detected Setup Type: Type of detected Installer
 
-* MST allowed: 
+* MST allowed:
 
-* Link mit Infos zum Installer
+* Link with information about the installer
 
-* Setup Datei: Pfad und Name der analysierten Setup-Datei
+* Setup file: Path and name of the analyzed setup file
 
-* MST Datei: Bei MSI-Installern oder Installern welche MSI enthalten, kann hier eine MST-Datei angegeben werden welche in den MSI Aufruf integriert wird.
+* MST file: For MSI installers or installers which contain MSI, an MST file can be specified here which will be integrated into the MSI call.
 
-* MsiId: Bei MSI-Installern oder Installern welche MSI enthalten, der MSI-Produktcode
+* MsiId: For MSI installers or installers that contain MSI in the form of product code
 
-* Software Version: Die Version der zu installierenden Software soweit ermittelbar
+* Software version: The version of the software to be installed if determinable.
 
-* Setup Datei Größe MB: Größe der Setup Datei in MB
+* Setup file size MB: Size of the setup file in MB
 
-* Benötigter Platz MB: Dieser Wert ist eine Schätzung aus sechsmal die Größe der Setup-Datei und kann gegebenenfalls angepasst werden
+* Required space MB: This value is an estimate of six times the size of the setup file and can be adjusted if necessary
 
-* InstallDir: Soweit erkannt das Verzeichnis in das die Software installiert werden wird
+* InstallDir: As far as detected the directory where the software will be installed.
 
-* Unattended Installationskommando: Das ermittelte Kommando zu einer nicht interaktiven Installation
+* Unattended installation command: The determined command for a non-interactive installation.
 
-* Unattended Deinstallationskommando: Das ermittelte Kommando zu einer nicht interaktiven Deinstallation
+* Unattended deinstallation command: The determined command for a non-interactive deinstallation.
 
-* Deinstallations Programm: Das ermittelte Deinstallations Programm
+* Deinstallations program: The determined deinstallations program
 
-.opsi-setup-detector Produktkonfiguration 1
-image::osd_page_product1_en.png["Produktkonfiguration 1",width=500]
+.opsi-setup-detector Product configuration 1
+image::osd_page_product1_en.png["Product configuration 1",width=500]
 
-* *opsi Product ID:* dies ist der Name des zu erzeugenden opsi Paketes und wird aus dem weiter unten stehenden Produkt Namen erzeugt, wobei Leerzeichen und andere ungültigen Zeichen durch ein '-' ersetzt werden. Die vorgeschlagene opsi Product ID kann natürlich geändert werden.
-* *Produkt Name:* der Name der zu installierenden Software. Dieser muss evtl. händig korrigiert werden
-* *Produkt Version:* die aus dem Name der Setup-Datei ermittelte Versionsnummer muss wahrscheinlich händig korrigiert werden. Sie darf nur Ziffern und Punkte enthalten, da sie für die Versionierung des opsi Paketes verwendet wird.
+* *opsi Product ID:* this is the name of the opsi package to be generated and is generated from the product name below, where spaces and other invalid characters are replaced by a '-'. The proposed opsi Product ID can of course be changed.
+* *Product Name:* the name of the software to install. This may have to be corrected manually.
+* *Product Version:* The version number determined from the name of the setup file must probably be corrected manually. It may only contain numbers and periods, since it's used for the versioning of the opsi package.
 
-* *Beschreibung:* In diesem Feld wird als Vorgabe der Produkt Name vorgegeben und sollte mit weiteren Hinweisen ergänzt werden, die dann als Produktbeschreibung des opsi Paketes gesetzt werden.
-* *Lizenz pflichtig:* Wenn dieses Häkchen gesetzt wird, wird beim Patchen des opsiscripts '$LicenseRequired$=true' gesetzt.
+* *Description:* In this field the product name is given as default and should be completed with further hints, which are then set as product description of the opsi package.
+* *License required:* If this checkbox is set, '$LicenseRequired$=true' will be set when patching the opsiscript.
 
-.opsi-setup-detector Produktkonfiguration 2
-image::osd_page_product2_en.png["Produktkonfiguration 2",width=500]
+.opsi-setup-detector Product configuration 2
+image::osd_page_product2_en.png["Product configuration 2",width=500]
 
-.opsi-setup-detector Produkt erzeugen
-image::osd_page_create_en.png["Produkt erzeugen",width=500]
+Create .opsi-setup-detector product
+image::osd_page_create_en.png["Create product",width=500]
 
-* 'Pfad zur opsi-workbench' ist ein Laufwerksbuchstabe oder UNC Pfad auf dem der share `opsi_workbench` Ihres opsi-servers gemounted ist.
-* aus Sicherheitsgründen kann ein opsi Paket nur dann neu erzeugt werden, wenn es noch nicht vorhanden ist. Falls ein bestehendes Paket überschrieben werden soll, muss zuerst das Verzeichnis von der opsi Workbench gelöscht werden.
+* 'Path to opsi-workbench' is a drive letter or UNC path where the share `opsi_workbench` of your opsi-server is mounted.
+* For security reasons, an opsi package can only be rebuilt if it doesn't exist already. If an existing package is to be overwritten, the directory must first be deleted from the opsi Workbench.
 
-Links neben dem Button 'Erzeuge opsi Paket' befinden sich drei mögliche Auswahl Optionen, die sich auf die Funktion des Buttons beziehen:
+To the left of the button 'Create opsi package' there are three possible options, which refer to the function of the button:
 
-`Erstellungs Modus` ist ein Auswahlbereich bei dem die Vorgänge bei der Paketerstellung bestimmt werden können:
+Create Mode' is a selection area where you can specify what happens when creating the package:
 
-* `Erstelle opsi Produkt Dateien` erzeugt falls noch nicht vorhanden, den Verzeichnisbaum für das neue opsi Paket auf der gewählten `opsi-Workbench`. Die für das Pakte benötigten Dateien werden erzeugt bzw. kopiert.
+* `Create opsi product files` creates the directory tree for the new opsi package on the selected `opsi workbench` if it does not already exist. The files required for the package will be created or copied.
 
-* `Erstelle opsi Produkt Dateien und baue opsi Paket` führt die im ersten Punkt angeführten Vorgänge durch. +
-Zusätzlich wird der `opsi Package Builder` aufgerufen um aus dem erstellen Verzeichnisbaum das opsi-Paket zu erstellen. Die genauen Abläufe werden dabei duch das Auswahlfeld `Baumodus` bestimmt:
+* `Create opsi product files and build package` performs the operations described in the first point. +
+Additionally, the `opsi Package Builder` is called to create the opsi package from the created directory tree. The exact processes are determined by the selection field `Tree mode`:
 
-** `nur bauen` startet den `opsi Package Builder` ohne interaktive GUI, erstellt aus dem Verzeichnisbaum per Server Befehl `opsi-makepackage` ein opsi Paket und beendet den `opsi Package Builder` nach getaner Arbeit wieder.
+** `Only build` starts the `opsi Package Builder` without interactive GUI, creates an opsi package from the directory tree via server command `opsi-makepackage` and terminates the `opsi Package Builder` after work is done.
 
-** `bauen und installieren` startet den `opsi Package Builder` ohne interaktive GUI, erstellt aus dem Verzeichnisbaum per Server Befehl `opsi-makepackage` ein opsi Paket installiert das Paket per Server Befehl `opsi-package-manager` und beendet den `opsi Package Builder` nach getaner Arbeit wieder.
+** `build and install` starts the `opsi Package Builder` without interactive GUI, creates from the directory tree via server command `opsi-makepackage` an opsi package installs the package via server command `opsi-package-manager` and finishes the `opsi Package Builder` after the work is done.
 
-* `Erstelle opsi Produkt Dateien und starte interaktiven Pakagebuilder` führt die im ersten Punkt angeführten Vorgänge durch. +
-Zusätzlich wird der `opsi Package Builder` interaktiv aufgerufen. +
-Sie müssen diesen selbst beenden um zu dem `opsi-setup-detector` zurückzukehren
-Zu Installation, Konfiguration und Bedienung des Community Projektes 'opsi Packet Builder' siehe https://forum.opsi.org/viewforum.php?f=22
+* `Create opsi product files and start interactive package builder` performs the operations listed in the first item. +
+Additionally the `opsi Package Builder` is called interactively. +
+You have to quit it yourself to return to the `opsi-setup-detector`.
+For installation, configuration and operation of the community project 'opsi Package Builder' check https://forum.opsi.org/viewforum.php?f=22
 
-* `opsi-Paket erstellen` ist der Button welcher die Paketerstellung veranlasst.
-Aus Sicherheitsgründen kann ein opsi Paket nur dann neu erzeugt werden, wenn es noch nicht vorhanden ist. Ist bereits ein Paket mit diesem Namen vorhanden, so erscheint eine Rückfrage ob das vorhandene Verzeichnis gelöscht werden darf.
-
+* `Create opsi package` is the button that initiates the package creation.
+For security reasons, an opsi package can only be rebuilt if it doesn't exist already. If a package with this name already exists, you will be asked if the existing directory may be deleted.
 
 [[opsi-setup-detector-use-double-analyze-and-create]]
-===== Opsi-setup-detector: Analysiere zwei setup Dateien (32 und 64 Bit) und erzeuge ein opsi Paket 
+===== Opsi-setup-detector: Analyze two setup files (32 and 64 bit) and create one opsi package
 
-.opsi-setup-detector Ergebnis der Analyse des zweiten Setupprogramms
-image::osd_page_setup2_en.png["Ergebnis der Analyse 2",width=500]
+.opsi-setup-detector Result of the analysis of the second setup program
+image::osd_page_setup2_en.png["Result of analysis 2",width=500]
 
-Dieser Punkt entspricht dem oben beschriebenen `Analysiere einzelne setup Datei und erzeuge ein opsi Paket` mit der folgenden Ergänzung: +
-Es werden zwei Setupprogramme für die Architekturen 32 und 64 Bit abgefragt und anlaysiert. Das Produkt bekommt ein zusätzliches Property: `install_architecture` mit den möglichen Werten: `32bitonly`, `64bitonly`, `both`, `systemspecific`.
-
+This item corresponds to the `Analyze single setup file described above and create an opsi package` with the following addition: +
+Two setup programs for the 32 and 64 bit architectures are queried and analyzed. The product gets an additional property: `install_architecture` with the possible values: `32bitonly`, `64bitonly`, `both`, `systemspecific`.
 
 [[opsi-setup-detector-use-single-analyze-only]]
-===== Opsi-setup-detector: Analysiere einzelne setup Datei 
+===== Opsi-setup-detector: Analyze single setup file
 
-Dieser Punkt entspricht dem oben beschriebenen `Analysiere einzelne setup Datei und erzeuge ein opsi Paket` mit der folgenden Einschränkung: +
-Nach der Analyse wird der Vorgang abgebrochen.
+This item corresponds to the `Analyze single setup file described above and create an opsi package` with the following restriction: +
+After the analysis the process will be aborted.
 
 [[opsi-setup-detector-use-template-create]]
-===== Opsi-setup-detector: Eine opsi Paketvorlage (Template) erzeugen
+===== Opsi-setup-detector: Create an opsi package template
 
-Dieser Punkt entspricht dem oben beschriebenen `Analysiere einzelne setup Datei und erzeuge ein opsi Paket` mit der folgenden Einschränkung: +
-es wird nicht nach einer Setup Datei gefragt und damit entfällt auch die Analyse. Vielmehr wird eine allgemeine Scriptvorlage erzeugt.
+This item corresponds to the `Analyze single setup file described above and create an opsi package` with the following restriction: +
+it does not ask for a setup file and therefore the analysis is not necessary. Rather a general script template is created.
 
 [[opsi-setup-detector-configuration]]
-==== Opsi-setup-detector: Konfiguration
+==== Opsi-setup-detector: Configuration
 
-.opsi-setup-detector: Konfiguration
-image::osd_config_dlg_en.png["Konfigurationsdialog",width=300]
+.opsi-setup-detector: Configuration
+image::osd_config_dlg_en.png["Configuration dialog",width=300]
 
-.Geforderte Konfigurationen:
+.Required configurations:
 
 * Name +
-(Wird verwendet für Einträge in die changelog.txt)
+(Used for entries in the changelog.txt)
 
-* eMail +
-(Wird verwendet für Einträge in die changelog.txt)
+* Email +
+(Used for entries in the changelog.txt)
 
-* Pfad zur opsi-work-bench +
-Pfad zum Verzeichnis in dem die opsi-Pakete erstellt werden sollen.
-Dies ist idealerweise der Pfad zu der Stelle an der die opsi_workbench Ihres opsi-servers gemountet ist.
+* Path to the opsi-workbench +
+Path to the directory in which the opsi packages should be created.
+This is ideally the path to the place where the opsi_workbench of your opsi-server is mounted.
 
-* Pfad zum OpsiPackageBuilder +
+* Path to the OpsiPackageBuilder +
 ////
-Der OpsiPackageBuilder wird verwendet um via ssh die opsi Pakete auf dem opsi-server zu bauen. siehe auch: \n"
-"https://forum.opsi.org/viewtopic.php?f=22&t=7573\n"  
+The OpsiPackageBuilder is used to build the opsi packages on the opsi-server via ssh. see also: \n"
+"https://forum.opsi.org/viewtopic.php?f=22&t=7573\n"
 ////
 Path to the OpsiPackageBuilder. OpsiPackageBuilder is used to build the opsi packages via ssh. see: https://forum.opsi.org/viewtopic.php?f=22&t=7573"
 
-
-.Programmverhalten
+.Program behavior
 
 * createradioindex +
 ////
@@ -311,7 +307,7 @@ Automatisch erkannt. Ist die opsi_workbench unter dem angegebenen Pfad 'workbenc
 Automatically detected. Is the opsi workbench reachable at workbench_Path.
 
 
-.Modifikation des Produkts:
+.Modification of the product:
 
 * import_libraries +
 ////
@@ -323,9 +319,8 @@ List of opsi-script libraries that have to be imported. +
 One per line. May be empty. Example: +
 `myinstallhelperlib.opsiscript`
 
-
-*Konfigurationen bei denen Sie opsi-script code für bestimmte Stellen eingeben können*: +
-opsi-script code Zeilen welche eingefügt werden. +
+*Configurations where you can enter opsi-script code for certain jobs*: +
+opsi-script code lines which will be inserted. +
 ////
 Ein opsi-script Befehl pro Zeile. Darf leer sein. +
 Beispiel: +
@@ -336,117 +331,112 @@ One per line. May be empty. Example: +
 `comment "Installation finished..."`
 
 
-* preinstalllines +
+* preinstall lines +
 ////
 opsi-script code Zeilen welche vor dem Beginn der Installation eingefügt werden.
 ////
 opsi-script code lines that should be included before the installation starts.
 
 
-* postinstalllines +
+* postinstall lines +
 ////
 Zeilen welche nach dem Ende der Installation eingefügt werden.
 ////
 Lines that should be included after the installation finished.
 
 
-* preuninstalllines +
+* preuninstall lines +
 ////
 opsi-script code Zeilen welche vor dem Beginn der Deinstallation eingefügt werden.
 ////
 opsi-script code lines that should be included before the uninstallation starts.
 
 
-* postuninstalllines +
+* postuninstall lines +
 ////
 opsi-script code Zeilen welche nach dem Ende der Deinstallation eingefügt werden.
 ////
 opsi-script code lines that should be included after the uninstallation finished.
 
-
-
-
-
 [[opsi-setup-detector-customizing]]
-==== Opsi-setup-detector: Anpassung an eigene Bedüfnisse
+==== Opsi-setup-detector: Adaptation to your own requirements
 
 # has to be written
 
 
 [[opsi-setup-detector-troubleshooting]]
-==== Opsi-setup-detector: Probleme und Lösungen
+==== Opsi-setup-detector: Problems and solutions
 
-Der opsi-setup-detector ist so designt, das es möglichst einfach ist ihn kontinuierlich weiter zupflegen und zu erweitern. +
-Bestimmte Anpassungsmöglichkeiten und Hilfen bei Problemen werden Ihnen im folgenden vorgestellt. +
-Haben Sie Ideen und / oder Wünsche darüberhinaus, so nehmen Sie bitte zu uns Kontakt auf (info@uib.de) - wir freuen uns über jede Anregung.
-
+The opsi-setup-detector is designed in such a way that it is as easy as possible to be continuously maintained and expanded. +
+Certain customization options and help with problems are presented in the following. +
+If you have ideas and / or wishes beyond that, please contact us at (info@uib.de) - we are looking forward to your suggestions.
 
 [[opsi-setup-detector-troubleshooting-logging]]
 ===== Logging
 
-Der opsi-setup-detector erzeugt Logdateien unter
+The opsi-setup-detector creates log files under
 `c:\opsi.org\applog\opsisetupdetector.log`. +
-Ältere Logdateien liegen im selben Verzeichnis als  `opsisetupdetector_0.log` bis `opsisetupdetector_8.log`.
+Older log files are located in the same directory as `opsisetupdetector_0.log` to `opsisetupdetector_8.log`.
 
-Die Logdatei wird sehr groß, weil sie die kompletten Daten der Analyse der Setupdatei(en) enthält. Zur Analyse der Logdatei empfehlen wir den `opsi-log-viewer` oder einen anderen Editor welcher die nicht benötigten Loglevel ausblenden kann, da die im Setup gefundenen Textmuster (auf Loglevel 8) in vielen Fällen nicht intressieren. 
+The log file becomes very large because it contains the complete data of the analysis of the setup file(s). For the analysis of the log file we recommend the `opsi-log-viewer` or another editor which can hide the unneeded log levels, because the text patterns found in the setup (on log level 8) in many cases are not so relevant.
 
 [[opsi-setup-detector-troubleshooting-lang]]
-===== Sprachunterstützung
+===== Language support
 
-Beim Start des Programmes wird automatisch ermittelt, unter welcher Sprache das Windows System läuft. Wenn für die Sprache eine passende Sprachdatei gefunden wird, wird diese verwendet. Wird keine unterstützte Sprache gefunden, so wird Englisch verwendet. +
-Sie können die Sprache wählen über den Menüpunkt `Languages` bzw. beim Aufruf über den Kommandozeilen Parameter `--lang=xx` wobei `xx` für die gewählte Sprache steht.
+When the program is started, the language of the Windows system is automatically determined. If a suitable language file is found for the language, it is used. If no supported language is found, English is used. +
+You can select the language via the menu item `Languages` or via the command line parameter `--lang=xx` where `xx` stands for the selected language.
 
-Derzeit unterstützt der 'opsi setup detector' : +
+Currently the 'opsi setup detector' supports : +
 
-* Deutsch 
-* Englisch
-* Spanisch
+* German
+* English
+* Spanish
 
-Weitere Sprachen können recht einfach über eine entsprechend zu übersetzende Sprachdatei nachgerüstet werden. +
-Die Übersetzungen erfolgen über das Portal: 
+Additional languages can be easily added to be translated via a language file. +
+Translations are done via the portal:
 https://www.transifex.com/opsi-org/ +
-Wir freuen uns über Ihre Unterstützung
+We look forward to your support
 
 [[opsi-setup-detector-troubleshooting-unknown-installer]]
 ===== Unknown Installer
 
-Sicher werden Sie im Rahmen der Arbeit mit dem opsi-setup-detector mal auf die Meldung `Unknown Installer` stoßen. Dann hat der opsi-setup-detector das Installer-Framework mit dem dieser Installer gemacht ist nicht erkannt. +
-Vorschläge: +
+Surely you will come across the message `Unknown Installer` while working with the opsi-setup-detector. Then the opsi-setup-detector did not recognize the installer framework with which this installer was made. +
+Suggestions: +
 
-* Prüfen Sie ob es tatsächlich ein Installer ist. (Klingt blöd, ist mir aber selbst schon mal so gegangen)
+* Check if the file is really an installer. (Sounds stupid, but it happened to me already)
 
-* Suchen Sie im Internet nach den Stichwörtern 'silent' und Produktname
+* Search the Internet for the keywords 'silent' and product name
 
-* Vielleicht helfen die Links auf dieser Seite weiter: +
+* Maybe the links on this page will help you: +
 https://forum.opsi.org/wiki/doku.php?id=userspace:software_integration_web_links
 
-Wenn Sie das Problem gelöst haben, lassen Sie uns (und die opsi Community) an Ihrem Wissen und Erfahrung teilhaben. +
-Das neue (interne) Design des opsi-setup-detector macht es möglich vergleichweise leicht neue Installer aufzunehmen. Was wir benötigen ist : +
+Once you have solved the problem, let us, (and the opsi community) know about experience. +
+The new (internal) design of the opsi-setup-detector makes it possible to easily add new installers. What we need is : +
 
-* Beispiel Setupprogramm
+* Example setup program
 
-* Hersteller bzw. typische Kommandozeilen Schalte für Installation und Deinstalltion
+* Manufacturer or typical command line Switch for installation and uninstallation
 
-* Informative Links zu dem Problem
+* Informative links to the problem
 
 [[opsi-setup-detector-troubleshooting-wrong-installer]]
-===== Falsch Erkennung
+===== False detection
 
-Gerade im Rahmen der zunehmenden Anzahl von unterstützten (also erkannten) Installern führt auch schonmal zu einer Falscherkennung. +
-Die passiert insbesondere dann gerne wenn ein Installer mehrere Softwarekomponenten umfasst welche wiederum mit unterschiedlichen Installern gepackt sind. +
-Sollten Sie ein solches Problem entdecken, so informieren Sie uns bitte und halten das entsprechende Beispiel und die richtige Lösung bereit.
+Especially in the context of the increasing number of supported (i.e. detected) installers, false detection can occur. +
+This happens especially when an installer contains several software components which are packed with different installers. +
+Should you discover such a problem, please inform us and have the appropriate example and the correct solution ready.
 
 [[opsi-setup-detector-troubleshooting-bugs]]
-===== Programmfehler
+===== Program error
 
-Sollte der opsi-setup-detector Dinge tun die er nicht sollte, so sichern Sie bitte die dazu passendende Logdatei aus `c:\opsi.org\applog\` (siehe  auch: <<opsi-setup-detector-troubleshooting-logging>>) und informieren Sie uns über das Problem auf info@uib.de. Halten Sie auch die Beispieldatei bereit, da wir diese eventuell benötigen um das Problem nachzuvollziehen.
+If the opsi-setup-detector behaves strangely or does something unexpected, please backup the corresponding log file from `c:\opsi.org\applog\` (see also: <<opsi-setup-detector-troubleshooting-logging>>) and inform us about the problem at info@uib.de. Also have the sample file ready, as we may need it to reproduce the problem.
 
 [[opsi-setup-detector-troubleshooting-sorce]]
-===== Source Code und Lizenz
+===== Source Code and License
 
-Der opsi-setup-detector ist Lizenziert unter der AGPLv3.
+The opsi-setup-detector is licensed under the AGPLv3.
 
-Den Sourcode finden Sie unter: +
+The source code can be found under: +
 
 * https://github.com/opsi-org/lazarus/tree/master/opsi-misc/opsisetupdetector
 
