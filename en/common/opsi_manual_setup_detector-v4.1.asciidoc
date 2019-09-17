@@ -31,8 +31,8 @@ The following information is required:
 * Path to the directory in which the opsi packages are going to be created.
 This is ideally the path to the place where the opsi_workbench of your opsi-server is mounted.
 
-.opsi-setup-detector Notwendige Konfiguration beim ersten Start
-image::osd_config_dlg_en.png["Konfigurationsdialog",width=300]
+.opsi-setup-detector Needed configurations at the first start
+image::osd_config_dlg_en.png["Configuration dialog",width=300]
 
 At the start page select the desire task and follow the dialogs (click 'Next step')
 
@@ -203,7 +203,7 @@ image::osd_page_product1_en.png["Product configuration 1",width=500]
 .opsi-setup-detector Product configuration 2
 image::osd_page_product2_en.png["Product configuration 2",width=500]
 
-Create .opsi-setup-detector product
+.opsi-setup-detector create product
 image::osd_page_create_en.png["Create product",width=500]
 
 * 'Path to opsi-workbench' is a drive letter or UNC path where the share `opsi_workbench` of your opsi-server is mounted.
