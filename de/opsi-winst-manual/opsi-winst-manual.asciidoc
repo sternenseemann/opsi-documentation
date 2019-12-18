@@ -9129,9 +9129,16 @@ Erlaubte winst modifier sind (seit 4.11.1):
 
 * `/Sysnative`
 
-* `/showoutput` // since 4.11.4.6
+* `/showoutput` // seit 4.11.4.6 +
+Zeigt die Ausgabe des gestarten Skripts bei der Ausführung in einem zusätzlichen Fenster an.
 
-Parameter des Aufrufs der DosBatch-Sektion in der Actions-Sektion werden unmittelbar als Parameter der Batch-Datei interpretiert. 
+* `/RunElevated` // seit <EXPERIMENTAL> [W] +
+Startet das Skript mit einem höheren Security Token, was vor allem für bestimmte Operationen mit `powershell.exe`, die mehr Rechte brauchen, interessant ist. Dieser Modus funktioniert nur im `opsi-service`-Kontext und erlaubt keinen Zugriff auf das Netzwerk.
+
+* `/RunAsLoggedOnUser` // seit <EXPERIMENTAL> [W] +
+Nur im Kontext eines `userLoginScript`s verfügbar. Startet das Skript als der Benutzer, der sich gerade einloggt.
+
+Parameter des Aufrufs der DosBatch-Sektion in der Actions-Sektion werden unmittelbar als Parameter der Batch-Datei interpretiert.
 
 Zum Beispiel bewirken die Anweisungen in Actions-Sektionen bzw. der Sektion
 DosBatch_1 :
@@ -9908,6 +9915,15 @@ Diese Option legt fest, dass die Backslashes in '{opsi-winst}/opsi-script'-Varia
 
 *  `/LetThemGo` +
 Diese Option hat den Effekt (wie bei `winBatch` Aufrufen), dass das aufgerufene Programm in einem neuen Thread startet, während der '{opsi-winst}/opsi-script' mit dem Auslesen des Skripts fortfährt.
+
+* `/showoutput` // seit <EXPERIMENTAL> +
+Zeigt die Ausgabe des gestarten Skripts bei der Ausführung in einem zusätzlichen Fenster an.
+
+* `/RunElevated` // seit <EXPERIMENTAL> [W] +
+Startet das Skript mit einem höheren Security Token, was vor allem für bestimmte Operationen mit `powershell.exe`, die mehr Rechte brauchen, interessant ist. Dieser Modus funktioniert nur im `opsi-service`-Kontext und erlaubt keinen Zugriff auf das Netzwerk.
+
+* `/RunAsLoggedOnUser` // seit <EXPERIMENTAL> [W] +
+Nur im Kontext eines `userLoginScript`s verfügbar. Startet das Skript als der Benutzer, der sich gerade einloggt.
 
 Wie bei ExecPython Sektionen wird die Ausgabe einer ExecWith-Sektion in einer String-Liste über die Funktion `getOutStreamFromSection` erfasst.
 
