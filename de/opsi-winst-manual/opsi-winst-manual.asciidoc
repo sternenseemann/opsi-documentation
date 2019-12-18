@@ -5614,22 +5614,22 @@ set $exitcode$ = powershellCall('Get-Process -ProcessName "opsi*"')
 
 anchor:processCall[]
 
-* `processCall(`<string>`) : string (exitcode)` //since 4.11.6.1 [W/L/M] +
+* `processCall(`<string>`) `[WinBatch Options]` : string (exitcode)` //since 4.11.6.1 [W/L/M] +
 Startet das Programm <string> als Prozess und liefert den Exitcode zurück. +
 [source,winst]
 ----
-set $exitcode$ = processCall('setup.exe /S')
+set $exitcode$ = processCall('setup.exe /S') /SysNative
 ----
 Ist eine Abkürzung für den Ausdruck:
 [source,winst]
 ----
-Winbatch_setup
+Winbatch_setup /SysNative
 set $exitcode$ = getLastExitcode
 
 [Winbatch_setup]
 setup.exe /S
 ----
-Tatsächlich basiert `processCall` intern auf den selben Routinen wie `winbatch` und verarbeitet daher auch die selben Modifier:
+Tatsächlich basiert `processCall` intern auf den selben Routinen wie `winbatch` und verarbeitet daher auch xref:opsi-winst-winbatch-params[dieselben Modifier], wie zum Beispiel:
 
 * `/LetThemGo` +
 Verschiebt den aufgerufenen Prozess in den Hintergrund und wartet *nicht* auf dessen Beendigung;
@@ -5660,6 +5660,20 @@ Beispiel: `c:\windows\system32\regedit.exe` ruft (auf einem 64bit System) die 64
 Die in der Sektion angegebene Pfade werden gemäß der OS Architektur interpretiert. +
 Beispiel: `c:\windows\system32\regedit.exe` ruft auf einem 64bit System die 64 Bit 'regedit.exe' und auf einem 32bit System die 32 Bit 'regedit.exe'auf.
 
+* `/showoutput` //seit <EXPERIMENTAL> [W/L/M] +
+Wenn diese Option gesetzt ist, wird die Ausgabe der Prozesse, die in der Sektion gestartet werden, bei der Ausführung in einem Fenster angezeigt.
+
+* `/RunElevated`  [W] +
+Started dem Prozess mit einem höheren Security Token (d.h. mit höheren Rechten). Dieser Modifier hat folgende Einschränkungen: +
+** Unter NT5 hat er keine Auswirkungen
+** Ein Zugriff auf das Netz ist in dem Prozess nicht möglich. Daher müssen die aufzurufenden Programme von einem Netzlaufwerk in ein temporäres lokales Verzeichnis kopiert werden.
+** Evtl. kann es zu Problemen bei der Nutzung der grafischen Oberfläche kommen. Daher sind echte silent aufrufe hier zu bevorzugen.
+** Funktioniert nur im opsi-service Kontext
+
+* `/RunAsLoggedonUser` //seit 4.11.3.5  [W] +
+Nur im Kontext eines 'userLoginScripts' verfügbar. Startet das Programm als der user der sich gerade einlogt.
+Dieser Modifier hat folgende Einschränkungen: +
+** Unter NT6 wenig getestet und evtl. nur Eingeschränkt wirksam.
 
 [[opsi-winst-special-commands]]
 === Spezielle Kommandos [W/L/M] 
@@ -9054,7 +9068,7 @@ Winbatch_uninstall /WaitForProcessEnding "uninstall.exe" /TimeOutSeconds 20
 ----
 
 * `/RunElevated`  [W] +
-Started dem Prozeß mit einem höheren Security Token (d.h. mit höheren Rechten). Dieser Modifier hat folgende Einschränkungen: +
+Started dem Prozess mit einem höheren Security Token (d.h. mit höheren Rechten). Dieser Modifier hat folgende Einschränkungen: +
 ** Unter NT5 hat er keine Auswirkungen
 ** Ein Zugriff auf das Netz ist in dem Prozess nicht möglich. Daher müssen die aufzurufenden Programme von einem Netzlaufwerk in ein temporäres lokales Verzeichnis kopiert werden.
 ** Evtl. kann es zu Problemen bei der Nutzung der grafischen Oberfläche kommen. Daher sind echte silent aufrufe hier zu bevorzugen.
@@ -9065,6 +9079,8 @@ Nur im Kontext eines 'userLoginScripts' verfügbar. Startet das Programm als der
 Dieser Modifier hat folgende Einschränkungen: +
 ** Unter NT6 wenig getestet und evtl. nur Eingeschränkt wirksam.
 
+* `/showoutput` //seit <EXPERIMENTAL> [W/L/M] +
+Wenn diese Option gesetzt ist, wird die Ausgabe der Prozesse, die in der Sektion gestartet werden, bei der Ausführung in einem Fenster angezeigt.
 
 *  `getLastExitCode` +
 Die String-Funktion getLastExitCode gibt den ExitCode des letzten Prozessaufrufs der vorausgehenden WinBatch / DosBatch / ExecWith Sektion aus.

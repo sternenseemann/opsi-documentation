@@ -5621,25 +5621,24 @@ Example:
 set $exitcode$ = powershellCall('Get-Process -ProcessName "opsi*"')
 ----
 
-
 anchor:processCall[]
 
-* `processCall(`<string>`) : string (exitcode)` //since 4.11.6.1 [W/L/M] +
+* `processCall(`<string>`) `[WinBatch Options]` : string (exitcode)` //since 4.11.6.1 [W/L/M] +
 Starts the command binary <string> as process and returns te exitcode +
 [source,winst]
 ----
-set $exitcode$ = processCall('setup.exe /S')
+set $exitcode$ = processCall('setup.exe /S') /SysNative
 ----
 Is a shortcut for this expression:
 [source,winst]
 ----
-Winbatch_setup
+Winbatch_setup /SysNative
 set $exitcode$ = getLastExitcode
 
 [Winbatch_setup]
 setup.exe /S
 ----
-In fact `processCall` is internal a winbatch call, so all the `winbatch` modifiers are also allowed for `processCall`
+In fact `processCall` is a winbatch call internally, so all the xref:opsi-winst-winbatch-params[winbatch modifiers] are also allowed for `processCall` like for example:
 
 * `/LetThemGo` +
 This is the contrary to `/WaitOnClose`. It is used if '{opsi-winst}/opsi-script' shall proceed while the started processes run in their own threads.
@@ -5668,7 +5667,20 @@ Example: `c:\windows\system32\regedit.exe` executes (running on a 64 bit system)
 The paths within the section are assigned according to the OS architecture interpretiert. +
 Example: `c:\windows\system32\regedit.exe` running on a 64bit system calls the 64 bit 'regedit.exe' and running on a 32 bit system the 32 bit 'regedit.exe'.
 
+* `/RunElevated`  [W] +
+Starts a process using a security token with elevated privileges. This modifier has the following restrictions: +
+** For NT5 it does not change anything.
+** A process started with this modifier has no network access. So you should copy a program to a temporary local directory, but do not start it from a network share.
+** You may see problems while using the graphical interface. Therefore true silent installations are the better choice in this case.
+** Functions only in the context of '{opsi-winst}/opsi-script'.
 
+* `/RunAsLoggedonUser` //since 4.11.3.5  [W] +
+This is available only in the context of 'userLoginScripts'. The program is executed as the user, who has just logged on.
+This modifier has the following limitation: +
+** insufficient tested on NT6 and possibly of limited effect.
+
+* `/showoutput` //since EXPERIMENTAL [W/L/M] +
+Show the output of the started process(es) in a separate window during execution.
 
 [[opsi-winst-special-commands]]
 === Special Commands [W/L/M]
@@ -8971,24 +8983,6 @@ depricated (not ok): `test.txt`
 
 There a several parameters of the WinBatch call which determine if (or how long) '{opsi-winst}/opsi-script' shall be wait for the started programs returning.
 
-* `/WaitOnClose` +
-Is the default +
-'{opsi-winst}/opsi-script' waits for every initiated process to come back.
-
-* `/LetThemGo` +
-This is the contrary to `/WaitOnClose`. It is used if '{opsi-winst}/opsi-script' shall proceed while the started processes run in their own threads.
-
-
-* `/WaitSeconds` [number of seconds] +
-If a call includes the parameter /WaitSeconds [number of seconds], then '{opsi-winst}/opsi-script' is waiting for [number of seconds] before proceeding. In the default configuration, we also wait for any programs that are currently running to finish. If we combine the parameter /WaitSeconds with the option `/LetThemGo`, then '{opsi-winst}/opsi-script' continues processing after the waiting time is finished.
-
-* `/WaitForProcessEnding` <program name> +
-Waits for the process called <program name> to end. +
-Should be combined with `/TimeOutSeconds`.
-
-Explanation: +
-When starting an external process from a winbatch call, the '{opsi-winst}/opsi-script' waits for the current process to finish before executing the next command in the script.
-
 *  `/32Bit` //since 4.11.3.5  [W] +
 This is the default. The paths within the section are assumed to be 32 bit pathes. +
 Example: `c:\windows\system32\regedit.exe` calls (even when running on a 64 bit system) the 32 bit 'regedit.exe'.
@@ -9009,11 +9003,31 @@ Winbatch_add_reg /64Bit
 "c:\windows\system32\regedit.exe" /s "%scriptpath%\my64.reg"
 ----
 
-* `/RunAsLoggedonUser` //since 4.11.3.5  [W] +
-This is available only in the context of 'userLoginScripts'. The program is executed as the user, who has just logged on.
-This modifier has the following limitation: +
-** insufficient tested on NT6 and possibly of limited effect.
+* `/WaitOnClose` +
+Is the default +
+'{opsi-winst}/opsi-script' waits for every initiated process to come back.
 
+* `/LetThemGo` +
+This is the contrary to `/WaitOnClose`. It is used if '{opsi-winst}/opsi-script' shall proceed while the started processes run in their own threads.
+
+
+* `/WaitSeconds` [number of seconds] +
+If a call includes the parameter /WaitSeconds [number of seconds], then '{opsi-winst}/opsi-script' is waiting for [number of seconds] before proceeding. In the default configuration, we also wait for any programs that are currently running to finish. If we combine the parameter /WaitSeconds with the option `/LetThemGo`, then '{opsi-winst}/opsi-script' continues processing after the waiting time is finished.
+
+* `/WaitForWindowAppearing` [window title]  [W] +
+resp. +
+`/WaitForWindowVanish` [window title]  [W] +
+Both are deprecated. Please use `/WaitForProcessEnding` +
+
+The first option means that '{opsi-winst}/opsi-script' waits until any process lets pop up a window with title window title. With the second option '{opsi-winst}/opsi-script' is waiting as long as a certain window (1) appeared on the desktop and (2) disappeared again. +
+CAUTION: These options only know windows of 32-bit programms
+
+* `/WaitForProcessEnding` <program name> +
+Waits for the process called <program name> to end. +
+Should be combined with `/TimeOutSeconds`.
+
+Explanation: +
+When starting an external process from a winbatch call, the '{opsi-winst}/opsi-script' waits for the current process to finish before executing the next command in the script.
 
 .Sequential processing of a script that waits for the end of a program
 image::waitforprocess_scheme_std.png["waitforprocess_scheme_std",width=150]
@@ -9043,29 +9057,23 @@ Winbatch_uninstall /WaitForProcessEnding "uninstall.exe" /TimeOutSeconds 20
 ----
 
 * `/RunElevated`  [W] +
-Starts a process that has a security token with elevated privileges. This modifier has the following restrictions: +
+Starts a process using a security token with elevated privileges. This modifier has the following restrictions: +
 ** For NT5 it does not change anything.
 ** A process started with this modifier has no network access. So you should copy a program to a temporary local directory, but do not start it from a network share.
 ** You may see problems while using the graphical interface. Therefore true silent installations are the better choice in this case.
 ** Functions only in the context of '{opsi-winst}/opsi-script'.
 
+* `/RunAsLoggedonUser` //since 4.11.3.5  [W] +
+This is available only in the context of 'userLoginScripts'. The program is executed as the user, who has just logged on.
+This modifier has the following limitation: +
+** insufficient tested on NT6 and possibly of limited effect.
+
+* `/showoutput` //since EXPERIMENTAL [W/L/M] +
+Show the output of the started process(es) in a separate window during execution.
+
 *  `getLastExitCode` +
 Returns a string that contains the value of the exitcode of the the process that was last called by a WinBatch / DosBatch / ExecWith section. +
 When using a DosBatch or ExecWith section, you will normally get the exitcode of the interpreter that was called. To get the exitcode of your script you have to define it explicitly.
-
-* `/RunAsLoggedOnUser` // since 4.11.3.5  [W] ; works only inside 'userLoginScripts'
-
-* `/32Bit` or `/64Bit` or `/SysNative`	 //since 4.11.3.5  [W] +
-These modifiers control if the path to a called program is interpreted as 32 or 64 Bit Path. So if want for example call a `%system%\cmd.exe` you call a 32 bit program by default. If you use the /64bit modifier you will get with the same call the 64 bit version.
-
-* `/WaitForWindowAppearing` [window title]  [W] +
-resp. +
-`/WaitForWindowVanish` [window title]  [W] +
-Both are deprecated. Please use `/WaitForProcessEnding` +
-
-The first option means that '{opsi-winst}/opsi-script' waits until any process lets pop up a window with title window title. With the second option '{opsi-winst}/opsi-script' is waiting as long as a certain window (1) appeared on the desktop and (2) disappeared again. +
-CAUTION: These options only know windows of 32-bit programms
-
 
 [[opsi-winst-winbatch-examples]]
 ==== Examples
